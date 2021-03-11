@@ -21,7 +21,7 @@ The team is formed by the following members:
 
 ### Git clone
 
-You can either do it with the url: ´git clone https://github.com/alejandrochico99/eACta.git´ or if you have a password protected ssh key in gitHub: ´git clone git@github.com:alejandrochico99/eACta.git´
+You can either do it with the url: `git clone https://github.com/alejandrochico99/eACta.git` or if you have a password protected ssh key in gitHub: `git clone git@github.com:alejandrochico99/eACta.git`
 
 ### Install the dependencies
 
@@ -29,9 +29,9 @@ You can either do it with the url: ´git clone https://github.com/alejandrochico
 
 **You must execute the following commands in your shell:**
 
-1. ´cd eActa/e-acta´ **Do it inside the folder where the project is**
-1. ´yarn install´
+1. `cd eActa/e-acta` **Do it inside the folder where the project is**
+1. `yarn install`
 
 ## Start the project
 
-### ´yarn start´
+### `yarn start`
