@@ -1,0 +1,30 @@
+.login_body{
+    background-color: lightgray;
+    display:flex;
+    align-items: center;
+    flex-direction:column;
+    
+    
+}
+
+.logger{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background-color: orangered;
+    border: 2px solid black;
+    width: 500px;
+    height: 250px;
+}
+.login-form{
+    display: flex;
+    flex-direction:column;
+    margin-top: 5px;
+}
+
+.login-form input {
+    margin: 5px;
+}
+.login-submit{
+    margin: 15px;
+}
