@@ -1,0 +1,9 @@
+.general-body{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+}
+.general-header{
+    display: flex;
+    background-color:orangered
+}
