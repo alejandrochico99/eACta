@@ -69,6 +69,7 @@
     display: flex;
     flex-direction: column;
     align-items:center;
+    flex-grow: 3;
     border: 1px solid;
     background-color:white
 }
@@ -76,6 +77,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
     border: 1px solid;
     margin-top: 10px;
     margin-bottom: 30px;
@@ -92,6 +94,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-grow: 1;
     margin: 20px;
     border: 1px solid;
     background-color:white;
