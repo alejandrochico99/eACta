@@ -1,1 +1,60 @@
-@import "../general.css"
+@import "../general.css";
+
+html{
+    height: 100%;
+}
+
+body{
+    min-height: 100vh;
+}
+
+.asignaturas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+    margin-bottom: 15px;
+
+}
+
+.general-content section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.asignatura{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 80vh;
+    overflow: auto;
+}
+.asignatura div {
+    margin: 5px;
+    
+}
+.lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+}
+.lista li{
+    display:flex;
+    width: fit-content;
+    flex-direction:row;
+    justify-content: space-between;
+    border: 1px solid;
+    width: 90%;
+    
+}
+.grupo {
+    display: flex;
+    justify-content: center;
+    border: 1px solid
+}
+
+.general-content nav{
+    flex-grow: 2;
+}
