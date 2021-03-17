@@ -21,13 +21,14 @@
     justify-content:space-between;
     flex-grow: 1;
     padding-right: 40px; 
+    overflow: auto;
 }
 .user{
     padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     
 }
 .div{
@@ -48,18 +49,24 @@
     background-color: white;
     
 }
-.gestion {
-    width: 40vw;
-    padding: 40px;
+.lista {
     display: flex;
-    align-self: center;
-    justify-content: center;
-    flex: 1;
+    flex-direction: column;
     align-items: center;
-    border: 1px solid
+    list-style-type: none;
+    overflow: auto;
+}
+.lista li{
+    display:flex;
+    width: fit-content;
+    flex-direction:row;
+    justify-content: space-between;
+    border: 1px solid;
+    width: 90%;
 }
 .submit{
     margin-top:4vh;
+    margin-bottom:2vh;
     align-self: flex-end;
     flex-grow: 1;
 }
