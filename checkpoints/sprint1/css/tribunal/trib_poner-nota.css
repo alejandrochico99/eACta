@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    flex-grow: 4;
+
 }
 .titulo {
     width: 100%;
@@ -72,7 +72,4 @@
 .submit{
     align-self: flex-end;
     flex-grow: 1;
-}
-.general-content nav{
-    flex-grow: 2;
 }

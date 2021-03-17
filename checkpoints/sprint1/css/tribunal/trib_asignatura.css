@@ -1,13 +1,5 @@
 @import "../general.css";
 
-html{
-    height: 100%;
-}
-
-body{
-    min-height: 100vh;
-}
-
 .asignaturas {
     width: 100%;
     display: flex;
@@ -55,6 +47,4 @@ body{
     border: 1px solid
 }
 
-.general-content nav{
-    flex-grow: 2;
-}
+
