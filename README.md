@@ -17,6 +17,13 @@ The team is formed by the following members:
     * Javier Moro Ribera
 
 
+## Current version
+
+Right now, we have developed the prototype views of this project.
+
+They are situated in the folder checkpoints/sprint1.
+
+
 ## Download the project
 
 ### Git clone
