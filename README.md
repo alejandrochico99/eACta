@@ -21,7 +21,7 @@ The team is formed by the following members:
 
 Right now, we have developed the prototype views of this project.
 
-They are situated in the folder checkpoints/sprint1.
+They are situated in the folder: **checkpoints/sprint1**.
 
 
 ## Download the project
