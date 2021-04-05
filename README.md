@@ -36,7 +36,7 @@ You can either do it with the url: `git clone https://github.com/alejandrochico9
 
 **You must execute the following commands in your shell:**
 
-1. `cd eActa/e-acta` **Do it inside the folder where the project is**
+1. `cd eActa/e-acta/client` **Do it inside the folder where the project is**
 1. `yarn install`
 
 ## Start the project
