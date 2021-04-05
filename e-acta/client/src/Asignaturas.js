@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 export default class General extends React.Component {
   render() {
     return (
-        <div class="general-content">
+        <div class="general-content"> //hola
             <nav>
                 <button><Link to="/">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
