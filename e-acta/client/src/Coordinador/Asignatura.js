@@ -7,12 +7,6 @@ export default class Asignatura extends React.Component{
     render() {
         return (
             <div class="general-content"> 
-                <nav>
-                    <button><Link to="/">General</Link></button>
-                    <button><Link to="/asignaturas">Asignaturas</Link></button>
-                    <button>Mis Datos</button>
-                    <button>Configuración</button>
-                </nav>
                 <section>
                     <div class="titulo">
                         <h1>
@@ -64,18 +58,6 @@ export default class Asignatura extends React.Component{
                         </div>
                     </div>             
                 </section>
-                <aside>
-                    <div class="user-panel">
-                        <h1>Panel de usuario</h1>
-                        <div>
-                            <p>Aqui va la información del usuario</p>
-                        </div>
-                    </div>
-                    <div class="general-help">
-                        <button>Ayuda</button>
-                        <button>Contacto</button>
-                    </div>
-                </aside>
             </div>
         );
       }

@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import General from  './General.js';
-import Asignaturas from  './Asignaturas.js';
+import {Asignaturas} from  './Coordinador/Asignaturas.js';
 import {
   BrowserRouter as Router,
   Switch,
