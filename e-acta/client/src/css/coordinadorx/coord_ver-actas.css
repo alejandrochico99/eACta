@@ -1,0 +1,64 @@
+@import "../general.css";
+
+.general-content section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.titulo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+
+}
+.content{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content:space-between;
+    flex-grow: 1;
+    padding-right: 40px; 
+}
+.user{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    
+}
+.user div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border: 1px solid;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+.user img {
+    align-self: center;
+    height: 75px;
+    width: 75px;
+    margin-left: 20px;
+    margin-right: 15px;
+    
+}
+.gestion {
+    width: 40vw;
+    padding: 40px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex: 1;
+    align-items: center;
+    border: 1px solid
+}
+.submit{
+    margin-top:6vh;
+    align-self: flex-end;
+    flex-grow: 1;
+}

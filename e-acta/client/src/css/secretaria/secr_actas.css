@@ -1,0 +1,35 @@
+@import "../general.css";
+
+.general-content section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex-grow: 4;
+}
+.asignaturas {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+
+}
+.general-content section ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow-y:auto;
+    min-height: 0px;
+    
+}
+.general-content section ul li{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.general-content section ul li div {
+    flex: 1;
+    background-color:white;
+    border:1px solid
+}

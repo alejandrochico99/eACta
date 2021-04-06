@@ -1,0 +1,72 @@
+@import "../general.css";
+
+.general-content section{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+}
+.titulo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: lightgray;
+
+}
+.content{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content:space-between;
+    flex-grow: 1;
+    padding-right: 40px; 
+    overflow: auto;
+}
+.user{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    
+}
+.div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    border: 1px solid;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+.img {
+    height: 90px;
+    width: 90px;
+    align-self: center;
+    margin-left: 20px;
+    margin-right: 15px;
+    background-color: white;
+    
+}
+.lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    overflow: auto;
+}
+.lista li{
+    display:flex;
+    width: fit-content;
+    flex-direction:row;
+    justify-content: space-between;
+    border: 1px solid;
+    width: 90%;
+}
+.submit{
+    margin-top:4vh;
+    margin-bottom:2vh;
+    align-self: flex-end;
+    flex-grow: 1;
+}
