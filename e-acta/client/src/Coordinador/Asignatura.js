@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 
 
 export default class Asignatura extends React.Component{
+    
     render() {
         return (
             <div class="general-content"> 
@@ -19,7 +20,7 @@ export default class Asignatura extends React.Component{
                                 <p>IMG asignatura</p>
                             </div>
                             <div class="div">
-                                <p>Nombre completo de la asignatura</p>
+                                <p>Nombre completo de la asignatura: {this.props.nombre}</p>
                             </div>
                         </div>
                         <ul class="lista">
@@ -53,7 +54,7 @@ export default class Asignatura extends React.Component{
                             </li>
                         </ul>
                         <div class="submit">
-                            <button>Cancelar</button>
+                            <button onClick={this.props.handlerStateChild}>Cancelar</button>
                             <button>Guardar</button>
                         </div>
                     </div>             
