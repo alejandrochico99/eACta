@@ -8,13 +8,15 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Login from './Login';
 
 function App() {
 
   return (
     <Router>
       <Switch> 
-        <Route exact path="/" component={General} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/general" component={General} />
         <Route path="/asignaturas" component={Asignaturas} />
       </Switch>
     </Router>

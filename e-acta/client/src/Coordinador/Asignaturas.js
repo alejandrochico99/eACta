@@ -49,7 +49,7 @@ export const Asignaturas = () =>{
     return (
         <div class="general-content">
             <nav>
-                <button><Link to="/">General</Link></button>
+                <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
                 <button>Mis Datos</button>
                 <button>Configuración</button>
@@ -62,15 +62,15 @@ export const Asignaturas = () =>{
                 
                 <ul>
                     <li>
-                        <button onClick={()=>propsAsignatura(asig[0].name,0)}>Nombre completo de {asig[0].name}</button>
-                        <button>Actas</button>
+                        <button >Nombre completo de {asig[0].name}</button>
+                        <button onClick={()=>propsAsignatura(asig[0].name,0)}>Actas</button>
                         <div>
                             <p>IMG asignatura</p>
                         </div>
                     </li>
                     <li>
-                        <button onClick={()=>propsAsignatura(asig[1].name,1)}>Nombre completo de {asig[1].name}</button>
-                        <button>Actas</button>
+                        <button >Nombre completo de {asig[1].name}</button>
+                        <button onClick={()=>propsAsignatura(asig[1].name,1)}>Actas</button>
                         <div>
                             <p>IMG asignatura</p>
                         </div>

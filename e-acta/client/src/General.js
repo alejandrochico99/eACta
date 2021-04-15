@@ -8,7 +8,7 @@ export default class General extends React.Component {
     return (
         <div class="general-content">
             <nav>
-                <button><Link to="/">General</Link></button>
+                <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
                 <button>Mis Datos</button>
                 <button>Configuración</button>
