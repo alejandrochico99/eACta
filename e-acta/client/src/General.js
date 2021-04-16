@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './css/general.css';
 import {Link} from "react-router-dom";
+import {Button} from "react-bootstrap";
+
 
 export default class General extends React.Component {
   render() {

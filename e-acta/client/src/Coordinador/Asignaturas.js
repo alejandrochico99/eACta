@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import '../css/coordinadorx/coord_asignaturas.css';
 import {Link} from "react-router-dom";
 import Asignatura from './Asignatura.js';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export const Asignaturas = () =>{
     const asig=[
