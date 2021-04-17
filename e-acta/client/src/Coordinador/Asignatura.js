@@ -9,6 +9,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
+import '../css/coordinadorx/coord_asignatura.css'
 
 export default class Asignatura extends React.Component{
     constructor(props) {
@@ -52,6 +53,7 @@ export default class Asignatura extends React.Component{
         }*/
         
         return (
+            
             <div class="general-content"> 
                 <section>
                     <div class="titulo">
@@ -68,12 +70,10 @@ export default class Asignatura extends React.Component{
                                 <Card.Text >
                                      {this.state.users.map((user,key)=>
                                      <Container>
-                                         <Row>
                                             <ListGroup horizontal className="my-2">
                                                 <ListGroupItem xs={3}>{user.user}</ListGroupItem>
                                                 <ListGroupItem xs={3}>{user.nota}</ListGroupItem>
                                             </ListGroup>
-                                        </Row>
                                      </Container>
                                      )}
                                 </Card.Text>
