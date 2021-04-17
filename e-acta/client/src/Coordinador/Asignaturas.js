@@ -101,7 +101,7 @@ export const Asignaturas = () =>{
             </section>
             }
             {asignaturaSelected && (
-                <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState}></Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
+                <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
                 <div class="user-panel">
