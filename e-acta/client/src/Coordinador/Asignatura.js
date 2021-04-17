@@ -17,29 +17,25 @@ export default class Asignatura extends React.Component{
             users : [
                 {"user":"Manolo","nota":7},
                 {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":0},
-                {"user":"Elvira","nota":0},
-                {"user":"Andres","nota":0},
-                {"user":"Pablo","nota":0},
-                {"user":"Camilo","nota":0},
-                {"user":"Ludovico","nota":0},
-                {"user":"Manolo","nota":0},
+                {"user":"Javier","nota":5},
+                {"user":"Elvira","nota":5},
+                {"user":"Andres","nota":5},
+                {"user":"Pablo","nota":5},
+                {"user":"Camilo","nota":3},
+                {"user":"Ludovico","nota":10},
+                {"user":"Manolo","nota":10},
+                {"user":"Alejandro","nota":9},
+                {"user":"Manolo","nota":7},
                 {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":0},
-                {"user":"Elvira","nota":0},
-                {"user":"Andres","nota":0},
-                {"user":"Pablo","nota":0},
-                {"user":"Camilo","nota":0},
-                {"user":"Ludovico","nota":0},
-                {"user":"Ludovico","nota":0},
-                {"user":"Manolo","nota":0},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":0},
-                {"user":"Elvira","nota":0},
-                {"user":"Andres","nota":0},
-                {"user":"Pablo","nota":0},
-                {"user":"Camilo","nota":0},
-                {"user":"Ludovico","nota":0},
+                {"user":"Javier","nota":5},
+                {"user":"Elvira","nota":5},
+                {"user":"Andres","nota":5},
+                {"user":"Pablo","nota":5},
+                {"user":"Camilo","nota":3},
+                {"user":"Ludovico","nota":10},
+                {"user":"Manolo","nota":10},
+                {"user":"Alejandro","nota":9},
+                
             ]
         };
       }
@@ -75,14 +71,8 @@ export default class Asignatura extends React.Component{
                                          <Row>
                                             <ListGroup horizontal className="my-2">
                                                 <ListGroupItem xs={3}>{user.user}</ListGroupItem>
+                                                <ListGroupItem xs={3}>{user.nota}</ListGroupItem>
                                             </ListGroup>
-                                            <Form>
-                                                <FormGroup>
-                                                <Form.Control
-                                                    autoFocus
-                                                    onChange />
-                                                </FormGroup>
-                                            </Form>
                                         </Row>
                                      </Container>
                                      )}
