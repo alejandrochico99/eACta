@@ -77,22 +77,22 @@ export const Asignaturas = () =>{
                         </div>
                     </li>
                     <li>
-                        <button onClick={()=>propsAsignatura(asig[2].name,2)}>Nombre completo de {asig[2].name}</button>
-                        <button>Actas</button>
+                        <button >Nombre completo de {asig[2].name}</button>
+                        <button onClick={()=>propsAsignatura(asig[2].name,2)}>Actas</button>
                         <div>
                             <p>IMG asignatura</p>
                         </div>
                     </li>
                     <li>
-                        <button onClick={()=>propsAsignatura(asig[3].name,3)}>Nombre completo de {asig[3].name}</button>
-                        <button>Actas</button>
+                        <button >Nombre completo de {asig[3].name}</button>
+                        <button onClick={()=>propsAsignatura(asig[3].name,3)}>Actas</button>
                         <div>
                             <p>IMG asignatura</p>
                         </div>
                     </li>
                     <li>
-                        <button onClick={()=>propsAsignatura(asig[4].name,4)}>Nombre completo de {asig[4].name}</button>
-                        <button>Actas</button>
+                        <button>Nombre completo de {asig[4].name}</button>
+                        <button  onClick={()=>propsAsignatura(asig[4].name,4)}>Actas</button>
                         <div>
                             <p>IMG asignatura</p>
                         </div>
