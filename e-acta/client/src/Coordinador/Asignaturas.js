@@ -80,7 +80,7 @@ export const Asignaturas = () =>{
             
             { !asignaturaSelected &&
                 <section>
-                <Card style={{ width: '50%',height:'75%'}}>
+                <Card style={{ width: '100%',height:'75%'}}>
                 <Card.Title>Asignaturas de {localStorage.getItem("username")}</Card.Title>
                 <div class="content">
                         <Card style={{ width: '100%',height:'30rem', overflow:"auto"}}>
@@ -89,10 +89,10 @@ export const Asignaturas = () =>{
                             <Card.Text >
                                  {asig.map((a)=>
                                  <Container>
-                                        <ListGroup horizontal className="my-2">
-                                            <ListGroupItem>Nombre completo de {a.name}</ListGroupItem>
-                                            <ListGroupItem><button onClick={()=>propsAsignatura(a.name,0)}>Actas</button></ListGroupItem>
-                                            <ListGroupItem><p>IMG asignatura</p></ListGroupItem>
+                                        <ListGroup  horizontal className="my-2">
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>Nombre completo de {a.name}</ListGroupItem>
+                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.name,0)}>Actas</Button></ListGroupItem>
+                                            <ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>
                                         </ListGroup>
                                  </Container>
                                  )}
