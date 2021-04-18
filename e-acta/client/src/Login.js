@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./css/login.css";
@@ -10,10 +10,11 @@ export default function Login() {
   const [uservalid, setUserValid] = useState(false);
   const [passwordvalid, setPasswordValid] = useState(false);
 
+  
   const users = [
-      {"user":"admin","password":"adminpass"}
+      {"user":"admin","password":"adminpass","idRol":1},
+      {"user":"secretario","password":"secrepass","idRol":2}
   ];
-
   function validateForm() {
       if(!uservalid){
             users.forEach(element => {
@@ -34,7 +35,10 @@ export default function Login() {
     console.log("Password",password);
 
   }
-
+  function SaveUserData(){
+    localStorage.clear();
+    localStorage.setItem("username",email);
+  }
   return (
     <div className="Login">
       <Form onSubmit={handleSubmit}>
@@ -56,7 +60,7 @@ export default function Login() {
           />
         </Form.Group>
         <Link to="/general">
-            <Button block size="lg" type="submit" disabled={!validateForm()}>
+            <Button onClick={()=> SaveUserData()} block size="lg" type="submit" disabled={!validateForm()}>
                 Login
             </Button>
         </Link>

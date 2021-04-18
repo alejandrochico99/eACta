@@ -43,6 +43,7 @@ export default class Asignatura extends React.Component{
       update(){
           var oldusers = this.state
       }
+      
     render() {
         //var notas=users.map((user)=>user.nota)
         /*function importar(u) {
@@ -51,7 +52,7 @@ export default class Asignatura extends React.Component{
             })
             return usersimport;
         }*/
-        
+        console.log("eeeeeee",this.props.userAsig[0].idRol)
         return (
             
             <div class="general-content"> 
@@ -79,7 +80,15 @@ export default class Asignatura extends React.Component{
                                 </Card.Text>
                             </Card.Body>
                             </Card>
+                            {this.props.userAsig[0].idRol === 1 &&(
                             <Button variant="primary">Importar Notas</Button>
+                            )}
+                            {this.props.userAsig[0].idRol === 2 &&(
+                                <Container>
+                                    <Button variant="danger">Rechazar Acta</Button>
+                                    <Button variant="primary">Aprobar Acta</Button>
+                                </Container>
+                            )}
                         <Card.Footer>
                             <button onClick={this.props.handlerStateChild}>Cancelar</button>
                             <button>Guardar</button>

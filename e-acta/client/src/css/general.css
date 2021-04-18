@@ -32,7 +32,7 @@
     background-color:lightgray
 }
 .general-content{  
-    height:70vh;
+    height:100vh;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
