@@ -14,7 +14,7 @@ The team is formed by the following members:
     * Pablo Ruiz Ruiz
     * Christian Santiago Moreno
     * Andrés Zambran Valle
-    * Javier Moro Ribera
+    * Javier Moro Ribera Masó
 
 
 ## Current version
