@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import General from  './General.js';
 import {Asignaturas} from  './Coordinador/Asignaturas.js';
+import MisDatos from  './MisDatos.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/" component={Login} />
         <Route exact path="/general" component={General} />
         <Route path="/asignaturas" component={Asignaturas} />
+        <Route path="/datos" component={MisDatos} />
       </Switch>
     </Router>
   );

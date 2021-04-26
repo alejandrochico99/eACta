@@ -7,7 +7,7 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 
-export default class General extends React.Component {
+export default class MisDatos extends React.Component {
   render() {
     return (
         <div class="general-content">
@@ -19,7 +19,7 @@ export default class General extends React.Component {
             </nav>
             <section>
             <Card style={{ width: '100%',height:'100%'}}>
-            <Card.Img variant="top" src="escuditoupm.png" />
+                
                 <div class="content">
                         <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                         <Card.Body>

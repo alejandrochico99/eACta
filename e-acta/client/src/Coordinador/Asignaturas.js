@@ -31,6 +31,24 @@ export const Asignaturas = () =>{
         },
         {
             "name": "DORE"
+        },
+        {
+            "name": "IACR"
+        },
+        {
+            "name": "IWEB"
+        },
+        {
+            "name": "DORE"
+        },
+        {
+            "name": "IACR"
+        },
+        {
+            "name": "IWEB"
+        },
+        {
+            "name": "DORE"
         }
     ];
     var userName= localStorage.getItem("username");
@@ -74,16 +92,16 @@ export const Asignaturas = () =>{
             <nav>
                 <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
-                <button>Mis Datos</button>
+                <button><Link to="/datos">Mis Datos</Link></button>
                 <button>Configuración</button>
             </nav>
             
             { !asignaturaSelected &&
                 <section>
-                <Card style={{ width: '100%',height:'75%'}}>
-                <Card.Title>Asignaturas de {localStorage.getItem("username")}</Card.Title>
+                <Card style={{ width: '100%',height:'100%'}}>
+                <Card.Title style={{ textAlign:'center'}}>Asignaturas de {localStorage.getItem("username")}</Card.Title>
                 <div class="content">
-                        <Card style={{ width: '100%',height:'30rem', overflow:"auto"}}>
+                        <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                         <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Text >
@@ -102,65 +120,28 @@ export const Asignaturas = () =>{
                 </div> 
                 </Card>
                 </section>
-                
-             /*<section>
-                <div class="asignaturas">
-                    <h1>Asignaturas de {userName}</h1>
-                </div>
-                
-                <ul>
-                    <li>
-                        <button >Nombre completo de {asig[0].name}</button>
-                        <button onClick={()=>propsAsignatura(asig[0].name,0)}>Actas</button>
-                        <div>
-                            <p>IMG asignatura</p>
-                        </div>
-                    </li>
-                    <li>
-                        <button >Nombre completo de {asig[1].name}</button>
-                        <button onClick={()=>propsAsignatura(asig[1].name,1)}>Actas</button>
-                        <div>
-                            <p>IMG asignatura</p>
-                        </div>
-                    </li>
-                    <li>
-                        <button >Nombre completo de {asig[2].name}</button>
-                        <button onClick={()=>propsAsignatura(asig[2].name,2)}>Actas</button>
-                        <div>
-                            <p>IMG asignatura</p>
-                        </div>
-                    </li>
-                    <li>
-                        <button >Nombre completo de {asig[3].name}</button>
-                        <button onClick={()=>propsAsignatura(asig[3].name,3)}>Actas</button>
-                        <div>
-                            <p>IMG asignatura</p>
-                        </div>
-                    </li>
-                    <li>
-                        <button>Nombre completo de {asig[4].name}</button>
-                        <button  onClick={()=>propsAsignatura(asig[4].name,4)}>Actas</button>
-                        <div>
-                            <p>IMG asignatura</p>
-                        </div>
-                    </li>
-                </ul>
-            </section>*/
 
             }
             {asignaturaSelected && (
                 <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} userAsig={users}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
-                <div class="user-panel">
-                    <h1>Panel de usuario</h1>
-                    <div>
-                        <p>Aqui va la información del usuario</p>
-                    </div>
+                <div style={{height:'70%'}}>
+                <Card  style={{ width: '100%',height:'100%'}}>
+                    <Card.Img variant="top" src="useranonimo.png" />
+                    <Card.Body style={{ width: '100%',height:'100%'}}>
+                        <Card.Title>Panel de Usuario</Card.Title>
+                        <Card.Text>
+                            Some quick example text to build on the card title and make up the bulk of
+                            the card's content.
+                        </Card.Text>
+                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Go somewhere</Link></Button>
+                    </Card.Body>
+                    </Card>
                 </div>
                 <div class="general-help">
-                    <button>Ayuda</button>
-                    <button>Contacto</button>
+                    <Button variant="primary">Ayuda</Button>
+                    <Button variant="primary">Contacto</Button>
                 </div>
             </aside>
         </div>

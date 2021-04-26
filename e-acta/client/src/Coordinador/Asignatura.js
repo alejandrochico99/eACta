@@ -54,15 +54,13 @@ export default class Asignatura extends React.Component{
         }*/
         console.log("eeeeeee",this.props.userAsig[0].idRol)
         return (
-            
-            <div class="general-content"> 
                 <section>
                     <div class="titulo">
                         <h1>
                             Publicación de actas
                         </h1>
                     </div>
-                    <Card style={{ width: '75%',height:'75%'}}>
+                    <Card style={{ width: '100%',height:'100%'}}>
                     <Card.Title>Acta {this.props.nombre}</Card.Title>
                     <div class="content">
                             <Card style={{ width: '100%',height:'30rem', overflow:"auto"}}>
@@ -98,7 +96,6 @@ export default class Asignatura extends React.Component{
                     </Card>
                     
                 </section>
-            </div>
         );
       }
 }
