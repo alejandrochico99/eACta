@@ -9,9 +9,11 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
-import '../css/coordinadorx/coord_asignatura.css'
+import '../css/coordinadorx/coord_asignatura.css';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
 
-export default class Asignatura extends React.Component{
+export default class FirmaActa extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -57,40 +59,44 @@ export default class Asignatura extends React.Component{
                 <section>
                     <div class="titulo">
                         <h1>
-                            Publicación de actas
+                            Firma de Actas
                         </h1>
                     </div>
                     <Card style={{ width: '100%',height:'100%'}}>
                     <Card.Title>Acta {this.props.nombre}</Card.Title>
                     <div class="content">
-                            <Card style={{ width: '100%',height:'30rem', overflow:"auto"}}>
+                            <Card style={{ width: '100%',height:'40rem', overflow:"auto"}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Text >
-                                     {this.state.users.map((user,key)=>
-                                     <Container>
-                                             <ListGroup horizontal className="my-2">
+                                        <Row>
+                                            <Col  md={2}>
+                                                <Image src="isst_logo.png" rounded fluid />
+                                            </Col>
+                                            <Col md={9}>
+                                                {this.state.users.map((user,key)=>
+                                                <ListGroup horizontal className="my-2">
                                                     <ListGroupItem style={{width:"90%"}}>{user.user}</ListGroupItem>
                                                     <ListGroupItem xs={1}>{user.nota}</ListGroupItem>
-                                             </ListGroup>
-                                     </Container>
-                                     )}
+                                                </ListGroup>
+                                                )}
+                                            </Col>
+                                     </Row>
                                 </Card.Text>
                             </Card.Body>
                             </Card>
-                            {this.props.userAsig[0].idRol === 1 &&(
-                            <Button variant="primary">Importar Notas</Button>
-                            )}
-                            {this.props.userAsig[0].idRol === 2 &&(
+                            <Card.Footer>
+                                {this.props.userAsig[0].idRol === 1 &&(
                                 <Container>
-                                    <Button variant="danger">Rechazar Acta</Button>
-                                    <Button variant="primary">Aprobar Acta</Button>
+                                    <Row className="justify-content-md-end">
+                                    <Col xs lg="2">
+                                        <Button onClick={this.props.handlerStateChild} variant="light">Cancelar</Button>
+                                        <Button variant="danger">Firmar</Button>
+                                    </Col>
+                                    </Row>
                                 </Container>
-                            )}
-                        <Card.Footer>
-                            <button onClick={this.props.handlerStateChild}>Cancelar</button>
-                            <button>Guardar</button>
-                        </Card.Footer>
+                                    )}
+                            </Card.Footer>
                         
                     </div> 
                     </Card>

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import '../css/coordinadorx/coord_asignaturas.css';
 import {Link} from "react-router-dom";
 import Asignatura from './Asignatura.js';
+import FirmaActa from './FirmaActa.js';
 import 'bootstrap/dist/css/bootstrap.css';
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import Button from "react-bootstrap/Button";
@@ -12,6 +13,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
+
 export const Asignaturas = () =>{
     const asig=[
         {
@@ -53,6 +55,7 @@ export const Asignaturas = () =>{
     ];
     var userName= localStorage.getItem("username");
     const[asignaturaSelected,setAsignaturaSelected] = useState(false);
+    const[asignaturaFirmaSelected,setAsignaturaFirmaSelected] = useState(false);
     const[indiceAsignatura,setIndiceAsignatura] = useState(-1);
     const[nombreAsignatura,setnombreAsignatura] = useState("");
     const[users,setUser]=useState([]);
@@ -73,10 +76,19 @@ export const Asignaturas = () =>{
         }
     },[])
     function handlerState(){
+        console.log("userrr",users);
         setAsignaturaSelected(false);
+        setAsignaturaFirmaSelected(false);
     }
     function propsAsignatura(nombre,indice){
+        setAsignaturaFirmaSelected(false);
         setAsignaturaSelected(true);
+        setnombreAsignatura(nombre);
+        setIndiceAsignatura(indice);
+    }
+    function firmaActas(nombre,indice){
+        setAsignaturaSelected(false);
+        setAsignaturaFirmaSelected(true);
         setnombreAsignatura(nombre);
         setIndiceAsignatura(indice);
     }
@@ -96,7 +108,7 @@ export const Asignaturas = () =>{
                 <button>Configuración</button>
             </nav>
             
-            { !asignaturaSelected &&
+            { !asignaturaSelected && !asignaturaFirmaSelected &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
                 <Card.Title style={{ textAlign:'center'}}>Asignaturas de {localStorage.getItem("username")}</Card.Title>
@@ -110,7 +122,8 @@ export const Asignaturas = () =>{
                                         <ListGroup  horizontal className="my-2">
                                             <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>Nombre completo de {a.name}</ListGroupItem>
                                             <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.name,0)}>Actas</Button></ListGroupItem>
-                                            <ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>
+                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.name,0)}>FIRMAR</Button></ListGroupItem>
+                                            {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
                                  </Container>
                                  )}
@@ -122,8 +135,11 @@ export const Asignaturas = () =>{
                 </section>
 
             }
-            {asignaturaSelected && (
+            {asignaturaSelected && !asignaturaFirmaSelected && users[0].idRol === 1 && (
                 <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} userAsig={users}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
+            )}
+            {!asignaturaSelected && asignaturaFirmaSelected && users[0].idRol === 1 && ( //cambiar roles
+                <FirmaActa nombre={nombreAsignatura} handlerStateChild={handlerState} userAsig={users}> </FirmaActa> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
                 <div style={{height:'70%'}}>
