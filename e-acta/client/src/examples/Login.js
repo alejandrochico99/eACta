@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import "./css/login.css";
+import "../css/login.css";
 import {Link} from "react-router-dom";
 import axios from 'axios';
 
@@ -11,8 +11,7 @@ export default function Login() {
   const [uservalid, setUserValid] = useState(false);
   const [passwordvalid, setPasswordValid] = useState(false);
   const [user, setUser] = useState({})
-  const [dis, setDis] = useState(false)
-
+  const [dis, setDis] = useState(false);
   
   const users = [
       {"user":"admin","password":"adminpass","idRol":1},
@@ -41,25 +40,25 @@ export default function Login() {
 
   async function getUser() {
     let res = await axios.get('/app/api/usuarios/email/'+ email) 
-    res = await axios.get('/app/api/usuarios/email/'+ email) 
     setUser(res.data)
     console.log(user)
   }
   function SaveUserData(){
-    
-    const prueba = "christian.santiago.moreno@alumnos.upm.es" 
-    console.log(email)
-    getUser()
-    //getUser()    
+    //console.log(email)
+    getUser() 
     if (user.password === password) {
       setDis(true)
       console.log("Conseguido")
     }
     else{
-      setDis(false)
-      console.log("Error")
+        setDis(false)
+        console.log("Password: ",password)
+        console.log("email: ",email)
+        console.log("Error")
+      
     }
   }
+  
   return (
     <div className="Login">
       <Form onSubmit={handleSubmit}>
@@ -78,13 +77,10 @@ export default function Login() {
           <Form.Control
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {setPassword(e.target.value)
+                             SaveUserData()}}
           />
         </Form.Group>
-        <Button onClick={()=>{ SaveUserData()
-                              SaveUserData()}} block size="lg" type="submit">
-                Validar
-            </Button>
         <Link to="/general">
             <Button block size="lg" type="submit" disabled={!dis}>
                 Login

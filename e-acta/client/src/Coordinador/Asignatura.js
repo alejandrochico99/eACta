@@ -10,6 +10,8 @@ import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
 import '../css/coordinadorx/coord_asignatura.css'
+import '../ImportFiles';
+import ImportFiles from '../ImportFiles';
 
 export default class Asignatura extends React.Component{
     constructor(props) {
@@ -79,7 +81,8 @@ export default class Asignatura extends React.Component{
                             </Card.Body>
                             </Card>
                             {this.props.userAsig[0].idRol === 1 &&(
-                            <Button variant="primary">Importar Notas</Button>
+                            <Button variant="primary"><ImportFiles>Importar</ImportFiles></Button>
+                           
                             )}
                             {this.props.userAsig[0].idRol === 2 &&(
                                 <Container>

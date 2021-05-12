@@ -31,10 +31,11 @@ export default class MisDatos extends React.Component {
     }
 
     async componentDidMount() {
-        let response = await axios.get('/app/api/usuarios/2')
+        let response = await axios.get('/app/api/usuarios/1')
         this.setState({usuario: response.data})
         console.log(this.state.usuario)
         console.log(this.state)
+        console.log("repuesta get: ",response);
     }
     update(){
         var oldusers = this.state
@@ -50,6 +51,7 @@ export default class MisDatos extends React.Component {
                        <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>id: {a.id}</ListGroupItem>
                        <ListGroupItem variant="info">Acrónimo de la Asignatura: {a.siglas}</ListGroupItem>
                        <ListGroupItem variant="info">Nombre de la asignatura: {a.nombreAsignaturas}</ListGroupItem>
+                       
                    </ListGroup>
             </Container>
             )

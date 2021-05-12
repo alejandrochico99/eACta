@@ -13,46 +13,15 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
+import axios from 'axios';
 
 export const Asignaturas = () =>{
-    const asig=[
-        {
-            "name":"ISST"
-        },
-        {
-            "name": "RDOR"
-        },
-        {
-            "name": "COPT"
-        },
-        {
-            "name": "IACR"
-        },
-        {
-            "name": "IWEB"
-        },
-        {
-            "name": "DORE"
-        },
-        {
-            "name": "IACR"
-        },
-        {
-            "name": "IWEB"
-        },
-        {
-            "name": "DORE"
-        },
-        {
-            "name": "IACR"
-        },
-        {
-            "name": "IWEB"
-        },
-        {
-            "name": "DORE"
-        }
-    ];
+    const[asig,setAsig] = useState([]);
+    useEffect( async ()=>{
+            let response = await axios.get('/app/api/asignaturas');
+           // console.log("Usuario", response.data);
+            setAsig(response.data)
+    },[])
     var userName= localStorage.getItem("username");
     const[asignaturaSelected,setAsignaturaSelected] = useState(false);
     const[asignaturaFirmaSelected,setAsignaturaFirmaSelected] = useState(false);
@@ -120,9 +89,10 @@ export const Asignaturas = () =>{
                                  {asig.map((a)=>
                                  <Container>
                                         <ListGroup  horizontal className="my-2">
-                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>Nombre completo de {a.name}</ListGroupItem>
-                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.name,0)}>Actas</Button></ListGroupItem>
-                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.name,0)}>FIRMAR</Button></ListGroupItem>
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
+                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
+                                            {console.log("Map asignaturas",a)},
                                             {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
                                  </Container>
