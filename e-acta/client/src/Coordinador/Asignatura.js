@@ -18,7 +18,8 @@ export default class Asignatura extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            users : []
+            users : [],
+            updated: 0
         };
       }
       async componentDidMount(){
@@ -45,6 +46,34 @@ export default class Asignatura extends React.Component{
             this.setState({ users: statealumnos})
         }
       }
+     
+    async  importbutton  ()  {
+       
+        
+        let idasig = 0;
+        let responseasig = await axios.get('/app/api/asignaturas');
+        const asignaturas = responseasig.data;
+        //console.log("Asignaturas", asignaturas);
+        asignaturas.forEach(element => {
+            //console.log("elemento asignaturas", element)
+            //console.log("nombre props", this.props.nombre)
+            if(this.props.nombre == element.nombreAsignaturas){
+                idasig = element.id;
+                console.log("id",idasig);
+            }
+        });
+        if(idasig){
+            var statealumnos = [];
+            let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
+            console.log("responseasignatura",responseasignatura.data)
+            var data = responseasignatura.data;
+            data.forEach(al => {
+                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+            });
+            this.setState({ users: statealumnos})
+        }
+        
+    }
     render() {
         
         console.log("eeeeeee",this.props.userAsig[0].idRol)
@@ -74,7 +103,11 @@ export default class Asignatura extends React.Component{
                             </Card.Body>
                             </Card>
                             {this.props.userAsig[0].idRol === 1 &&(
-                            <Button variant="primary"><ImportFiles>Importar</ImportFiles></Button>
+                                <Container>
+                                    <Button variant="primary"><ImportFiles nombre={this.props.nombre}>Importar</ImportFiles></Button>,
+                                    <Button variant="danger" onClick={() => this.importbutton()}>Reload</Button>
+                                </Container>
+                            
                            
                             )}
                             {this.props.userAsig[0].idRol === 2 &&(
@@ -85,7 +118,7 @@ export default class Asignatura extends React.Component{
                             )}
                         <Card.Footer>
                             <button onClick={this.props.handlerStateChild}>Cancelar</button>
-                            <button onClick={()=>this.setState({ users: [{"user":"pepe","nota":10}]})}>Guardar</button>
+                            <button onClick={() => this.importbutton()}>Guardar</button>
                         </Card.Footer>
                         
                     </div> 
