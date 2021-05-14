@@ -12,48 +12,41 @@ import Row from 'react-bootstrap/Row';
 import '../css/coordinadorx/coord_asignatura.css'
 import '../ImportFiles';
 import ImportFiles from '../ImportFiles';
-
+import axios from 'axios';
+                
 export default class Asignatura extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            users : [
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                
-            ]
+            users : []
         };
       }
-      update(){
-          var oldusers = this.state
+      async componentDidMount(){
+        let idasig = 0;
+        let responseasig = await axios.get('/app/api/asignaturas');
+        const asignaturas = responseasig.data;
+        //console.log("Asignaturas", asignaturas);
+        asignaturas.forEach(element => {
+            //console.log("elemento asignaturas", element)
+            //console.log("nombre props", this.props.nombre)
+            if(this.props.nombre == element.nombreAsignaturas){
+                idasig = element.id;
+                console.log("id",idasig);
+            }
+        });
+        if(idasig){
+            var statealumnos = [];
+            let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
+            console.log("responseasignatura",responseasignatura.data)
+            var data = responseasignatura.data;
+            data.forEach(al => {
+                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+            });
+            this.setState({ users: statealumnos})
+        }
       }
-      
     render() {
-        //var notas=users.map((user)=>user.nota)
-        /*function importar(u) {
-            var usersimport = u.map((user)=>{
-                user.nota = Math.random() * (10) ;
-            })
-            return usersimport;
-        }*/
+        
         console.log("eeeeeee",this.props.userAsig[0].idRol)
         return (
                 <section>
@@ -92,7 +85,7 @@ export default class Asignatura extends React.Component{
                             )}
                         <Card.Footer>
                             <button onClick={this.props.handlerStateChild}>Cancelar</button>
-                            <button>Guardar</button>
+                            <button onClick={()=>this.setState({ users: [{"user":"pepe","nota":10}]})}>Guardar</button>
                         </Card.Footer>
                         
                     </div> 

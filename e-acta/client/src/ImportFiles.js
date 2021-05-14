@@ -41,8 +41,8 @@ const ImportFiles = () => {
       nota: 6
     }
     let response = await axios.get('/app/api/notas');
-    console.log("OBJETO", response.data)
-    console.log("JSON", JSON.stringify(response.data))
+    //console.log("OBJETO", response.data)
+    //console.log("JSON", JSON.stringify(response.data))
     /*let response = await axios.post('/app/api/notas',{nota}); // el nombre de la variable no importa, y el formato es {"nombre" : "valor"}
     console.log("notas", response)*/
   },[])
