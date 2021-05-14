@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import {csv} from 'd3';
 import Papa from "papaparse";
+import axios from 'axios';
 
 const ImportFiles = () => {
   const [image, setImage] = useState("");
@@ -18,17 +19,33 @@ const ImportFiles = () => {
       setImage(files[0]);
     }
   };
-  useEffect(()=>{
+  useEffect(() =>{
+        if(!image) return null;
         Papa.parse(image, { // 1 puta hora para esto :(
             complete: function(results) {
                 console.log(results);
                 console.log("Primer alumno",results.data[0][0])
                 console.log("Nota Primer alumno",results.data[0][1])
+                
             }
         });
-
-        //Hacer un push a la bbdd guardando en ALumnoHasNOta los datos de este archivo
+        
+      
   },[image])
+  useEffect(async () =>{
+    let user = await axios.get('/app/api/usuarios/2');
+    let asig = await axios.get('/app/api/asignaturas/3');
+    const nota = {
+      usuario: user.data,
+      asignatura: asig.data,
+      nota: 6
+    }
+    let response = await axios.get('/app/api/notas');
+    console.log("OBJETO", response.data)
+    console.log("JSON", JSON.stringify(response.data))
+    /*let response = await axios.post('/app/api/notas',{nota}); // el nombre de la variable no importa, y el formato es {"nombre" : "valor"}
+    console.log("notas", response)*/
+  },[])
 
   const onButtonClick = () => {
     inputFile.current.click();
