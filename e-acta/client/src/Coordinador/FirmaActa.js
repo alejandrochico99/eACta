@@ -20,8 +20,10 @@ export default class FirmaActa extends React.Component{
         this.state = {
             users : [],
             rolsecretaria: 0,
-            roltribunal:0
+            roltribunal:0,
+            idasigfirma:0
         };
+        this.firmar = this.firmar.bind(this); // flipante
       }
       async componentDidMount(){
 
@@ -42,6 +44,7 @@ export default class FirmaActa extends React.Component{
             }
         });
         if(idasig){
+            this.setState({idasigfirma:idasig})
             var statealumnos = [];
             let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
             console.log("responseasignatura",responseasignatura.data)
@@ -66,10 +69,48 @@ export default class FirmaActa extends React.Component{
             if(rol.nombreRol == "Secretaria"){
                 this.setState({rolsecretaria: rol.id})
             }
-            //console.log("Data roles", rol);
+            console.log("Data roles", rol);
         });
       }
+      async   firmar(){
+        const ida = this.state.idasigfirma;
+        let firmas=[];
+        let responseasignatura = await axios.get('/app/api/asignaturas/' + ida)
+        let firmado1 = responseasignatura.data.firmado1;
+        let firmado2 = responseasignatura.data.firmado2;
+        let firmado3 = responseasignatura.data.firmado3;
+        let asignueva = responseasignatura.data
+
+        if(!firmado1 && !firmado2 && !firmado3){
+            firmas.push(localStorage.getItem("idroluser"))
+           
+        }
+        if(firmado1 && !firmado2 && !firmado3){
+            firmas.push(firmado1)
+            firmas.push(localStorage.getItem("idroluser"));   
+        }
+        if(firmado1 && firmado2 && !firmado3){
+            firmas.push(firmado1)
+            firmas.push(firmado2)
+            firmas.push(localStorage.getItem("idroluser"));   
+        }
+        if(firmado1 && firmado2 && firmado3){
+            firmas.push(firmado1)
+            firmas.push(firmado2)
+            firmas.push(firmado3)
+        }
+        if(firmas){
+            let r = await axios.put('/app/api/asignaturas/'+ ida,firmas)
+        }
+       
+
+        console.log("jejejejeje", firmas)
+
+      }
+      
     render() {
+
+       
         //var notas=users.map((user)=>user.nota)
         /*function importar(u) {
             var usersimport = u.map((user)=>{
@@ -77,7 +118,7 @@ export default class FirmaActa extends React.Component{
             })
             return usersimport;
         }*/
-        console.log("eeeeeee",this.props.userAsig[0].idRol)
+        console.log("eeeeeee",this.props.idRolUser)
         return (
                 <section>
                     <div class="titulo">
@@ -109,12 +150,12 @@ export default class FirmaActa extends React.Component{
                             </Card.Body>
                             </Card>
                             <Card.Footer>
-                                {this.props.userAsig[0].idRol === 1 &&(
+                                {this.props.idRolUser == this.state.roltribunal &&(
                                 <Container>
                                     <Row className="justify-content-md-end">
                                     <Col xs lg="2">
                                         <Button onClick={this.props.handlerStateChild} variant="light">Cancelar</Button>
-                                        <Button variant="danger">Firmar</Button>
+                                        <Button onClick={()=>this.firmar()} variant="danger">Firmar</Button>
                                     </Col>
                                     </Row>
                                 </Container>

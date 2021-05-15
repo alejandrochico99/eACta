@@ -39,7 +39,7 @@ export const Asignaturas = () =>{
             console.log("false",rolusers)
         }
         
-},[])
+    },[])
     /*useEffect(()=>{
         if(localStorage.getItem("username")=="admin"){
             const usersApi = [

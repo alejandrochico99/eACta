@@ -66,7 +66,7 @@ export default class Asignatura extends React.Component{
             if(rol.nombreRol == "Secretaria"){
                 this.setState({rolsecretaria: rol.id})
             }
-            //console.log("Data roles", rol);
+            console.log("Data roles", rol);
         });
       }
      
@@ -100,6 +100,7 @@ export default class Asignatura extends React.Component{
     render() {
         
         console.log("eeeeeee",this.props.idRolUser)
+        console.log("euuuu",this.state.roltribunal)
         return (
                 <section>
                     <div class="titulo">
