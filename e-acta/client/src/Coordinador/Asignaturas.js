@@ -14,8 +14,11 @@ import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import useToken from '../useToken';
 
-export const Asignaturas = () =>{
+
+export const Asignaturas = ({ setToken }) =>{
     const[asig,setAsig] = useState([]);
     useEffect( async ()=>{
             let response = await axios.get('/app/api/asignaturas');
@@ -71,7 +74,7 @@ export const Asignaturas = () =>{
     return (
         <div class="general-content">
             <nav>
-                <button><Link to="/general">General</Link></button>
+                <button><Link to="/">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
                 <button><Link to="/datos">Mis Datos</Link></button>
                 <button>Configuración</button>
@@ -133,3 +136,7 @@ export const Asignaturas = () =>{
         </div>
     );
 }
+
+Asignaturas.propTypes = {
+    setToken: PropTypes.func.isRequired
+  }

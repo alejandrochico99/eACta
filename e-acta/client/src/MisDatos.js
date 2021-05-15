@@ -8,6 +8,8 @@ import Container from "react-bootstrap/Container"
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 
 /*
 <Card.Text >
@@ -73,7 +75,7 @@ export default class MisDatos extends React.Component {
         return (
             <div class="general-content">
                 <nav>
-                    <button><Link to="/general">General</Link></button>
+                    <button><Link to="/">General</Link></button>
                     <button><Link to="/asignaturas">Asignaturas</Link></button>
                     <button><Link to="/datos">Mis Datos</Link></button>
                     <button>Configuración</button>
@@ -124,3 +126,7 @@ export default class MisDatos extends React.Component {
         );
     }
 }
+/*
+MisDatos.propTypes = {
+    setToken: PropTypes.func.isRequired
+  }*/

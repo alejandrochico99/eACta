@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import logo from './logo.svg';
 import './App.css';
 import General from  './General.js';
@@ -9,17 +10,31 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Login from './examples/Login.js';
+import Login from './Login';
+import useToken from './useToken';
 
 function App() {
 
+  const { token, setToken } = useToken();
+
+  if(!token) {
+    return (
+      <Router>
+        <Login setToken={setToken}/>
+      </Router>)
+  }
   return (
     <Router>
       <Switch> 
-        <Route exact path="/" component={Login} />
-        <Route exact path="/general" component={General} />
-        <Route path="/asignaturas" component={Asignaturas} />
-        <Route path="/datos" component={MisDatos} />
+        <Route exact path="/">
+          <General setToken={setToken}/>
+        </Route>
+        <Route path="/asignaturas">
+          <Asignaturas setToken={setToken}/>
+        </Route>
+        <Route path="/datos">
+          <MisDatos setToken={setToken}/>
+        </Route>
       </Switch>
     </Router>
   );

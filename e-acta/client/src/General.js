@@ -6,16 +6,19 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import PropTypes from 'prop-types';
+
 
 export default class General extends React.Component {
   render() {
     return (
         <div class="general-content">
             <nav>
-                <button><Link to="/general">General</Link></button>
+                <button><Link to="/">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
                 <button><Link to="/datos">Mis Datos</Link></button>
                 <button>Configuración</button>
+                <button>Logout</button>
             </nav>
             <section>
             <Card style={{ width: '100%',height:'100%'}}>
@@ -53,3 +56,7 @@ export default class General extends React.Component {
     );
   }
 }
+/*
+General.propTypes = {
+    setToken: PropTypes.func.isRequired
+}*/
