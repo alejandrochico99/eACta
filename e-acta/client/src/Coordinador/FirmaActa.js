@@ -12,40 +12,63 @@ import Row from 'react-bootstrap/Row';
 import '../css/coordinadorx/coord_asignatura.css';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import axios from 'axios';
 
 export default class FirmaActa extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            users : [
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                
-            ]
+            users : [],
+            rolsecretaria: 0,
+            roltribunal:0
         };
       }
-      update(){
-          var oldusers = this.state
+      async componentDidMount(){
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE NOTAS********************************
+         ******************************************************************************
+        */
+        let idasig = 0;
+        let responseasig = await axios.get('/app/api/asignaturas');
+        const asignaturas = responseasig.data;
+        //console.log("Asignaturas", asignaturas);
+        asignaturas.forEach(element => {
+            //console.log("elemento asignaturas", element)
+            //console.log("nombre props", this.props.nombre)
+            if(this.props.nombre == element.nombreAsignaturas){
+                idasig = element.id;
+                console.log("id",idasig);
+            }
+        });
+        if(idasig){
+            var statealumnos = [];
+            let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
+            console.log("responseasignatura",responseasignatura.data)
+            var data = responseasignatura.data;
+            data.forEach(al => {
+                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+            });
+            this.setState({ users: statealumnos})
+        }
+
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE ROLES********************************
+         ******************************************************************************
+        */
+        let responseroles = await axios.get('/app/api/roles')
+        
+        responseroles.data.forEach(rol => {
+            if(rol.nombreRol == "Tribunal"){
+                this.setState({roltribunal: rol.id})
+            }
+            if(rol.nombreRol == "Secretaria"){
+                this.setState({rolsecretaria: rol.id})
+            }
+            //console.log("Data roles", rol);
+        });
       }
-      
     render() {
         //var notas=users.map((user)=>user.nota)
         /*function importar(u) {

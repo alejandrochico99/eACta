@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import "../css/login.css";
 import {Link} from "react-router-dom";
 import axios from 'axios';
+import { local } from "d3-selection";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,82 +12,87 @@ export default function Login() {
   const [uservalid, setUserValid] = useState(false);
   const [passwordvalid, setPasswordValid] = useState(false);
   const [user, setUser] = useState({})
-  const [dis, setDis] = useState(false);
+  const [dis, setDis] = useState("\.");
+  const [loginDenegado, setLoginDenegado] = useState(true);
+  const[rolalumno,setRolAlumno] = useState(0)
+  const general = "\general";
+  const login = "\.";
+  var directorio = "\.";
+  var pwd;
+  var usr;
+ 
   
   const users = [
-      {"user":"admin","password":"adminpass","idRol":1},
-      {"user":"secretario","password":"secrepass","idRol":2}
+      
   ];
-  function validateForm() {
-      if(!uservalid){
-            users.forEach(element => {
-            if(email == element.user) setUserValid(true);
-        });
-      }
-      if(!passwordvalid){
-        users.forEach(element => {
-            if(password == element.password) setPasswordValid(true);
-          });
-      }
-    return uservalid && passwordvalid ;
-  }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log("Usuario",email);
-    console.log("Password",password);
-
+  useEffect(async () =>{
+     /******************************************************************************
+         *********************CONTROL DE DATOS DE ROLES********************************
+         ******************************************************************************
+        */
+         let responseroles = await axios.get('/app/api/roles')
+         responseroles.data.forEach(rol => {
+             if(rol.nombreRol == "Alumno"){
+                 setRolAlumno(rol.id)
+             }
+             console.log("Data roles", rol);
+         });
+  })
+  function changeRoute() {
+    if (password==user.password){
+     setDis("\general");
+    }
   }
 
   async function getUser() {
-    let res = await axios.get('/app/api/usuarios/email/'+ email) 
-    setUser(res.data)
-    console.log(user)
+    let res = await axios.get('/app/api/usuarios/email/'+ email);
+    setUser(res.data);
   }
-  function SaveUserData(){
-    //console.log(email)
-    getUser() 
-    if (user.password === password) {
-      setDis(true)
-      console.log("Conseguido")
-    }
-    else{
-        setDis(false)
-        console.log("Password: ",password)
-        console.log("email: ",email)
-        console.log("Error")
-      
+
+  async function alerta(){
+    localStorage.clear();
+    if (password!==user.password){
+      alert("Nombre de usuario o contraseña incorrecto.");
+    }else{
+      let res = await axios.get('/app/api/usuarios/email/'+ email);
+      if(res.data.idRol.id == rolalumno){
+        console.log("ha entrado un alumno");
+      }
+      console.log("Response login: ",res.data)
+      localStorage.setItem("iduser",res.data.id);
+      localStorage.setItem("idroluser",res.data.idRol.id);
     }
   }
+
   
-  return (
-    <div className="Login">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={email}
-            onChange={(e) => {setEmail(e.target.value)
-                              SaveUserData()}}
-          />
-        </Form.Group>
-        <Form.Group size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => {setPassword(e.target.value)
-                             SaveUserData()}}
-          />
-        </Form.Group>
-        <Link to="/general">
-            <Button block size="lg" type="submit" disabled={!dis}>
-                Login
-            </Button>
-        </Link>
-      </Form>
+  return(
+    
+    <div className="Login" onKeyPress={getUser} onMouseMove={changeRoute}>
+    <Form >
+      <Form.Group size="lg" controlId="email">
+        <Form.Label>Email</Form.Label>
+        <Form.Control
+          autoFocus
+          input type="text" onChange={e => setEmail(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group size="lg" controlId="password">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+         input type="password" onChange={e => setPassword(e.target.value)} 
+        />
+      </Form.Group>
+      <Link to={dis}>
+                <Button block size="lg" type="submit" disabled={false} onClick={alerta}>
+                    Login
+                </Button>
+            </Link>
+    </Form>
     </div>
   );
 }
+
+
+
+

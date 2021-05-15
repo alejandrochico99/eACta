@@ -19,10 +19,16 @@ export default class Asignatura extends React.Component{
         super(props);
         this.state = {
             users : [],
-            updated: 0
+            rolsecretaria: 0,
+            roltribunal:0
         };
       }
       async componentDidMount(){
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE NOTAS********************************
+         ******************************************************************************
+        */
         let idasig = 0;
         let responseasig = await axios.get('/app/api/asignaturas');
         const asignaturas = responseasig.data;
@@ -45,6 +51,23 @@ export default class Asignatura extends React.Component{
             });
             this.setState({ users: statealumnos})
         }
+
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE ROLES********************************
+         ******************************************************************************
+        */
+        let responseroles = await axios.get('/app/api/roles')
+        
+        responseroles.data.forEach(rol => {
+            if(rol.nombreRol == "Tribunal"){
+                this.setState({roltribunal: rol.id})
+            }
+            if(rol.nombreRol == "Secretaria"){
+                this.setState({rolsecretaria: rol.id})
+            }
+            //console.log("Data roles", rol);
+        });
       }
      
     async  importbutton  ()  {
@@ -76,7 +99,7 @@ export default class Asignatura extends React.Component{
     }
     render() {
         
-        console.log("eeeeeee",this.props.userAsig[0].idRol)
+        console.log("eeeeeee",this.props.idRolUser)
         return (
                 <section>
                     <div class="titulo">
@@ -102,23 +125,22 @@ export default class Asignatura extends React.Component{
                                 </Card.Text>
                             </Card.Body>
                             </Card>
-                            {this.props.userAsig[0].idRol === 1 &&(
+                            {this.props.idRolUser == this.state.roltribunal &&( //Tribunal
                                 <Container>
-                                    <Button variant="primary"><ImportFiles nombre={this.props.nombre}>Importar</ImportFiles></Button>,
+                                    <Button variant="primary"><ImportFiles nombre={this.props.nombre}>Importar</ImportFiles></Button>
                                     <Button variant="danger" onClick={() => this.importbutton()}>Reload</Button>
                                 </Container>
                             
                            
                             )}
-                            {this.props.userAsig[0].idRol === 2 &&(
+                            {this.props.idRolUser == this.state.rolsecretaria &&( //Secretaria
                                 <Container>
                                     <Button variant="danger">Rechazar Acta</Button>
                                     <Button variant="primary">Aprobar Acta</Button>
                                 </Container>
                             )}
                         <Card.Footer>
-                            <button onClick={this.props.handlerStateChild}>Cancelar</button>
-                            <button onClick={() => this.importbutton()}>Guardar</button>
+                            <button onClick={this.props.handlerStateChild}>Volver atras</button>
                         </Card.Footer>
                         
                     </div> 

@@ -55,10 +55,10 @@ const ImportFiles = (nombre) => {
           console.log("alumnosimport",data)
           data.forEach(element => {
             csv.forEach(c => {
-                if(element.usuario.nombre == c[0]){
-                  console.log("c",c[0])
-                  console.log("e",element.usuario.nombre)
-                  objnotas.push({"user":element.usuario.id,"nota":c[1]})
+                if((element.usuario.nombre == c[0]) && (element.usuario.apellidos == c[1])){
+                  console.log("c",c[1])
+                  console.log("e",element.usuario)
+                  objnotas.push({"user":element.usuario.id,"nota":c[2]})
                 }
             });
             statealumnos.push(element.usuario.id)
