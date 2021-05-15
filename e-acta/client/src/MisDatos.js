@@ -27,12 +27,13 @@ export default class MisDatos extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state =  {usuario:{}};
+        this.state =  {usuario:{}, rol:""};
     }
 
     async componentDidMount() {
-        let response = await axios.get('/app/api/usuarios/1')
-        this.setState({usuario: response.data})
+        let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
+        let response2 = await axios.get('/app/api/roles/'+localStorage.getItem("idroluser"))
+        this.setState({usuario: response.data, rol: response2.data.nombreRol})
         console.log(this.state.usuario)
         console.log(this.state)
         console.log("repuesta get: ",response);
@@ -48,7 +49,6 @@ export default class MisDatos extends React.Component {
             info = this.state.usuario.asignaturas.map((a)=>
             <Container>
                    <ListGroup  horizontal className="my-2">
-                       <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>id: {a.id}</ListGroupItem>
                        <ListGroupItem variant="info">Acrónimo de la Asignatura: {a.siglas}</ListGroupItem>
                        <ListGroupItem variant="info">Nombre de la asignatura: {a.nombreAsignaturas}</ListGroupItem>
                        
@@ -62,7 +62,6 @@ export default class MisDatos extends React.Component {
                 funciones = this.state.usuario.idRol.funcionalidades.map((a)=>
                 <Container>
                     <ListGroup  horizontal className="my-2">
-                        <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>id: {a.id}</ListGroupItem>
                         <ListGroupItem variant="info">Funcionalidad: {a.nombreFuncionalidad}</ListGroupItem>
                     </ListGroup>
                 </Container>
@@ -80,7 +79,7 @@ export default class MisDatos extends React.Component {
                 </nav>
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
-                <Card.Title style={{ textAlign:'center'}}>Profesor: {this.state.usuario.nombre} {this.state.usuario.apellidos}</Card.Title>
+                <Card.Title style={{ textAlign:'center'}}>Miembro de(l) {this.state.rol}: {this.state.usuario.nombre} {this.state.usuario.apellidos}</Card.Title>
                     <div class="content">
                             <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                             <Card.Header></Card.Header>

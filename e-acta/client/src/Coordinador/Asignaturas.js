@@ -19,7 +19,7 @@ import { local } from 'd3-selection';
 export const Asignaturas = () =>{
     const[asig,setAsig] = useState([]);
     const[iduser,setIdUser] = useState(localStorage.getItem("iduser"));
-    var userName= localStorage.getItem("username");
+    const[userName, setUserName] = useState("")
     const[asignaturaSelected,setAsignaturaSelected] = useState(false);
     const[asignaturaFirmaSelected,setAsignaturaFirmaSelected] = useState(false);
     const[indiceAsignatura,setIndiceAsignatura] = useState(-1);
@@ -29,10 +29,17 @@ export const Asignaturas = () =>{
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
     useEffect( async ()=>{
         if(iduser){
-            let response = await axios.get('/app/api/usuarios/'+iduser);
-             console.log("Usuario", response.data);
-             setAsig(response.data.asignaturas)
-             console.log("true",rolusers)
+            if(rolusers == 2){
+                let response = await axios.get('/app/api/usuarios/'+iduser);
+                console.log("Usuario", response.data);
+                setAsig(response.data.asignaturas)
+                console.log("true",rolusers)
+                setUserName(response.data.nombre + " " + response.data.apellidos)
+            }
+            else if(rolusers == 3){
+                let response = await axios.get('/app/api/asignaturas');
+                setAsig(response.data.asignaturas)
+            }
         }else{
             console.log("Usuario");
             setIdUser(localStorage.getItem("iduser"));
@@ -87,10 +94,10 @@ export const Asignaturas = () =>{
                 <button>Configuración</button>
             </nav>
             
-            { !asignaturaSelected && !asignaturaFirmaSelected &&
+            { !asignaturaSelected && !asignaturaFirmaSelected && iduser == 2 &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
-                <Card.Title style={{ textAlign:'center'}}>Asignaturas de {localStorage.getItem("username")}</Card.Title>
+                <Card.Title style={{ textAlign:'center'}}>Asignaturas de {userName}</Card.Title>
                 <div class="content">
                         <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                         <Card.Header></Card.Header>
@@ -115,10 +122,41 @@ export const Asignaturas = () =>{
                 </section>
 
             }
-            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == 3 && ( //coger los roles desde la bbdd
+
+            { iduser == 3 &&
+                <section>
+                <Card style={{ width: '100%',height:'100%'}}>
+                <Card.Title style={{ textAlign:'center'}}>Miembro de secretaría: {userName}</Card.Title>
+                <div class="content">
+                        <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
+                        <Card.Header></Card.Header>
+                        <Card.Body>
+                            <Card.Text >
+                                 {asig.map((a)=>
+                                 
+                                 <Container>
+                                        <ListGroup  horizontal className="my-2">
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
+                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
+                                            {console.log("Map asignaturas",a)}
+                                            {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
+                                        </ListGroup>
+                                 </Container>
+                                 )}
+                            </Card.Text>
+                        </Card.Body>
+                        </Card>
+                </div> 
+                </Card>
+                </section>
+
+            }
+
+            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == 2 && ( //coger los roles desde la bbdd
                 <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
-            {!asignaturaSelected && asignaturaFirmaSelected && rolusers == 3 && ( //cambiar roles
+            {!asignaturaSelected && asignaturaFirmaSelected && rolusers == 2 && ( //cambiar roles
                 <FirmaActa nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </FirmaActa> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
