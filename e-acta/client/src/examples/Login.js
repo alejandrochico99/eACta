@@ -38,11 +38,9 @@ export default function Login() {
   async function getUser() {
     let res = await axios.get('/app/api/usuarios/email/'+ email);
     setUser(res.data);
-  }
-
-  async function alerta(){
-    
- /******************************************************************************
+    console.log("res.data",res.data.idRol.id)
+    localStorage.setItem("idroluser",res.data.idRol.id)
+    /******************************************************************************
          *********************CONTROL DE DATOS DE ROLES********************************
          ******************************************************************************
         */
@@ -65,6 +63,9 @@ export default function Login() {
          console.log("roles",localStorage.getItem("roltribunal"));
 
 
+  }
+
+  async function alerta(){
     if (password!==user.password){
       alert("Nombre de usuario o contraseña incorrecto.");
     }else{
@@ -72,10 +73,14 @@ export default function Login() {
       if(res.data.idRol.id == rolalumno){
         console.log("ha entrado un alumno");
       }
+      console.log("id secretaria", localStorage.getItem("rolsecretaria"))
       console.log("Response login: ",res.data)
       localStorage.setItem("iduser",res.data.id);
-      localStorage.setItem("idroluser",res.data.idRol.id);
     }
+    
+ 
+
+   
   }
 
   

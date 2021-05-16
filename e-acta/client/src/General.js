@@ -6,15 +6,23 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
+import { local } from 'd3-selection';
 
 export default class General extends React.Component {
+   
+   componentDidMount(){
+       
+   }
   render() {
     return (
         <div class="general-content">
             <nav>
                 <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
-                <button><Link to="/alumnos">Expedientes</Link></button>
+                {localStorage.getItem("idroluser") == localStorage.getItem("rolsecretaria") && (
+                    <button><Link to="/alumnos">Expedientes</Link></button>
+                )}
+                
                 <button><Link to="/">Logout</Link></button>
 
             </nav>

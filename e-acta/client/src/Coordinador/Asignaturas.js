@@ -112,7 +112,9 @@ export const Asignaturas = () =>{
             <nav>
                 <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
-                <button><Link to="/alumnos">Expedientes</Link></button>
+                {localStorage.getItem("idroluser") == localStorage.getItem("rolsecretaria") &&(
+                    <button><Link to="/alumnos">Expedientes</Link></button>
+                )}
                 <button><Link to="/">Logout</Link></button>
             </nav>
             
