@@ -25,17 +25,16 @@ export const Asignaturas = () =>{
     const[indiceAsignatura,setIndiceAsignatura] = useState(-1);
     const[nombreAsignatura,setnombreAsignatura] = useState("");
     const[rolusers,setRolUser]=useState(localStorage.getItem("idroluser"));
-    console.log("UseEffect Info Usuario:", rolusers);
+  
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
     useEffect( async ()=>{
         if(iduser){
-            console.log("iduser",rolusers);
-            console.log("localStorage",localStorage.getItem("roltribunal")); 
+
             if(rolusers == localStorage.getItem("roltribunal")){
                 let response = await axios.get('/app/api/usuarios/'+iduser);
-                console.log("Usuario", response.data);
+               
                 setAsig(response.data.asignaturas)
-                console.log("true",rolusers)
+              
                 setUserName(response.data.nombre + " " + response.data.apellidos)
             }
             else if(rolusers == localStorage.getItem("rolsecretaria")){ // SECRETARIA
@@ -45,28 +44,14 @@ export const Asignaturas = () =>{
                 setAsig(response.data.asignaturas)
             }
         }else{
-            console.log("Usuario");
+            
             setIdUser(localStorage.getItem("iduser"));
-            console.log("false",rolusers)
+           
         }
         
     },[])
-    /*useEffect(()=>{
-        if(localStorage.getItem("username")=="admin"){
-            const usersApi = [
-                {"user":"admin","password":"adminpass","idRol":1}
-            ];
-            setUser(usersApi);
-        }
-        if(localStorage.getItem("username")=="secretario"){
-            const usersApi = [
-                {"user":"secretario","password":"secrepass","idRol":2}
-            ];
-            setUser(usersApi);
-        }
-    },[])*/
+
     function handlerState(){
-        //console.log("userrr",rolusers);
         setAsignaturaSelected(false);
         setAsignaturaFirmaSelected(false);
     }
@@ -83,10 +68,6 @@ export const Asignaturas = () =>{
         setIndiceAsignatura(indice);
     }
     useEffect(()=>{
-        console.log("AsignaturaSelected: ", asignaturaSelected);
-        console.log("Indice: ", indiceAsignatura);
-        console.log("Nombre: ", nombreAsignatura);
-        console.log("UserName",localStorage.getItem("username"));
     },[asignaturaSelected]);
 
     function showAsig(){
@@ -135,7 +116,7 @@ export const Asignaturas = () =>{
                                             <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
                                             <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
                                             <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>Firmar</Button></ListGroupItem>
-                                            {console.log("Map asignaturas",a)}
+                                            
                                             {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
                                  </Container>

@@ -34,9 +34,6 @@ export default class MisDatos extends React.Component {
         let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         let response2 = await axios.get('/app/api/roles/'+localStorage.getItem("idroluser"))
         this.setState({usuario: response.data, rol: response2.data.nombreRol})
-        console.log(this.state.usuario)
-        console.log(this.state)
-        console.log("repuesta get: ",response);
     }
     update(){
         var oldusers = this.state
