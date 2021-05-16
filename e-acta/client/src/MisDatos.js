@@ -118,9 +118,8 @@ export default class MisDatos extends React.Component {
                         </Card>
                     </div>
                     <div class="general-help">
-                        <Button variant="primary">Ayuda</Button>
-                        <Button variant="primary">Contacto</Button>
-                    </div>
+                  <Button variant="primary"><Link style={{color:"white"}} to="/contacto">Contacto</Link></Button>
+                </div>
                 </aside>
             </div>
         );

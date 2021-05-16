@@ -4,6 +4,7 @@ import General from  './General.js';
 import {Asignaturas} from  './Coordinador/Asignaturas.js';
 import MisDatos from  './MisDatos.js';
 import {Alumnos} from './Secretaria/Expediente.js';
+import Contacto from './contacto.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -21,6 +22,7 @@ function App() {
         <Route path="/asignaturas" component={Asignaturas} />
         <Route path="/datos" component={MisDatos} />
         <Route path="/alumnos" component={Alumnos} />
+        <Route path="/contacto" component={Contacto} />
       </Switch>
     </Router>
   );

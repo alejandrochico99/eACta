@@ -54,8 +54,7 @@ export default class General extends React.Component {
                     </Card>
                 </div>
                 <div class="general-help">
-                    <Button variant="primary">Ayuda</Button>
-                    <Button variant="primary">Contacto</Button>
+                  <Button variant="primary"><Link style={{color:"white"}} to="/contacto">Contacto</Link></Button>
                 </div>
             </aside>
         </div>
