@@ -38,8 +38,11 @@ export default function Login() {
   async function getUser() {
     let res = await axios.get('/app/api/usuarios/email/'+ email);
     setUser(res.data);
-    console.log("res.data",res.data.idRol.id)
-    localStorage.setItem("idroluser",res.data.idRol.id)
+    if(res.data.idRol){
+      console.log("res.data",res.data.idRol.id)
+      localStorage.setItem("idroluser",res.data.idRol.id)
+    }
+    
     /******************************************************************************
          *********************CONTROL DE DATOS DE ROLES********************************
          ******************************************************************************
