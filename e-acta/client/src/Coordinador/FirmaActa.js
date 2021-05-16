@@ -91,7 +91,7 @@ export default class FirmaActa extends React.Component{
                 firmas.push(localStorage.getItem("iduser")); 
             }else{
                 firmas.push(firmado1)
-                alert("ya firmada por usted")
+                alert("Ya firmada por usted")
             }
         }
         if(firmado1 && firmado2 && !firmado3){
@@ -102,7 +102,7 @@ export default class FirmaActa extends React.Component{
             }else{
                 firmas.push(firmado1)
                 firmas.push(firmado2)
-                alert("ya firmada por usted")
+                alert("Ya firmada por usted")
             }
                
         }
@@ -110,7 +110,7 @@ export default class FirmaActa extends React.Component{
             firmas.push(firmado1)
             firmas.push(firmado2)
             firmas.push(firmado3)
-            alert("ya firmada por usted")
+            alert("Ya firmada por usted")
             
         }
         if(firmas){
@@ -133,7 +133,6 @@ export default class FirmaActa extends React.Component{
         }
        
 
-        console.log("jejejejeje", firmas)
 
       }
       
@@ -147,7 +146,7 @@ export default class FirmaActa extends React.Component{
             })
             return usersimport;
         }*/
-        console.log("eeeeeee",this.props.idRolUser)
+       
         return (
                 <section>
                     <div class="titulo">
@@ -183,8 +182,8 @@ export default class FirmaActa extends React.Component{
                                 <Container>
                                     <Row className="justify-content-md-end">
                                     <Col xs lg="2">
-                                        <Button onClick={this.props.handlerStateChild} variant="light">Cancelar</Button>
-                                        <Button onClick={()=>this.firmar()} variant="danger">Firmar</Button>
+                                        <Button onClick={this.props.handlerStateChild} variant="danger">Cancelar</Button>
+                                        <Button onClick={()=>this.firmar()} style={{color:"white"}}>Firmar</Button>
                                     </Col>
                                     </Row>
                                 </Container>
