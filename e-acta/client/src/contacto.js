@@ -90,7 +90,7 @@ export default class contacto extends React.Component {
                         <Card.Text>
                             {this.state.user}
                         </Card.Text>
-                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
+                        <Button variant="primary"><Link style={{color:"white"}} to="/datos">Mis Datos</Link></Button>
                     </Card.Body>
                     </Card>
                 </div>

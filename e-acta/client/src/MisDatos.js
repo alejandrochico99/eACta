@@ -112,7 +112,7 @@ export default class MisDatos extends React.Component {
                             <Card.Text>
                                 {this.state.usuario.nombre + " " + this.state.usuario.apellidos}
                             </Card.Text>
-                            <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
+                            <Button variant="primary"><Link style={{color:"white"}} to="/datos">Mis Datos</Link></Button>
                         </Card.Body>
                         </Card>
                     </div>
