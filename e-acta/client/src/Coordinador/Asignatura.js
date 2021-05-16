@@ -141,7 +141,8 @@ export default class Asignatura extends React.Component{
                                 </Container>
                             )}
                         <Card.Footer>
-                            <button onClick={this.props.handlerStateChild}>Volver atras</button>
+                            
+                            <Button variant="btn btn-dark" onClick={this.props.handlerStateChild}>Volver Atrás</Button>
                         </Card.Footer>
                         
                     </div> 

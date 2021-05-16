@@ -134,7 +134,7 @@ export const Asignaturas = () =>{
                                         <ListGroup  horizontal className="my-2">
                                             <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
                                             <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
-                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
+                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>Firmar</Button></ListGroupItem>
                                             {console.log("Map asignaturas",a)}
                                             {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
