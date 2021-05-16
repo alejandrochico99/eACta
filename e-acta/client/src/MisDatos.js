@@ -27,13 +27,13 @@ export default class MisDatos extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state =  {usuario:{}, rol:""};
+        this.state =  {usuario:{}, rol:"", rolId:-1};
     }
 
     async componentDidMount() {
         let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         let response2 = await axios.get('/app/api/roles/'+localStorage.getItem("idroluser"))
-        this.setState({usuario: response.data, rol: response2.data.nombreRol})
+        this.setState({usuario: response.data, rol: response2.data.nombreRol, rolId: response2.data.id})
     }
     update(){
         var oldusers = this.state
@@ -77,22 +77,25 @@ export default class MisDatos extends React.Component {
                     <button><Link to="/">Logout</Link></button>
 
                 </nav>
+                {this.state.rolId == localStorage.getItem("roltribunal") &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
-                <Card.Title style={{ textAlign:'center'}}>Miembro de(l) {this.state.rol}: {this.state.usuario.nombre} {this.state.usuario.apellidos}</Card.Title>
-                    <div class="content">
+                <Card.Title style={{ textAlign:'center'}}>Miembro del {this.state.rol}: {this.state.usuario.nombre} {this.state.usuario.apellidos}</Card.Title>
+                    <div class="content" style={{height:'50%'}}>
+                            <Card><Card.Header>Asignaturas del miembro del {this.state.rol}</Card.Header></Card>
                             <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                             <Card.Header></Card.Header>
-                            <Card.Title>Asignaturas del Profesor</Card.Title>
+                            <Card.Title></Card.Title>
                             <Card.Body>
                             {info}                                
                             </Card.Body>
                             </Card>
                     </div>
-                    <div class="content">
+                    <div class="content" style={{height:'50%'}}>
+                            <Card><Card.Header>Funciones del miembro del {this.state.rol}</Card.Header></Card>
                             <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                             <Card.Header></Card.Header>
-                            <Card.Title>Funciones del Profesor</Card.Title>
+                            <Card.Title></Card.Title>
                             <Card.Body>
                             {funciones}                                
                             </Card.Body>
@@ -100,6 +103,26 @@ export default class MisDatos extends React.Component {
                     </div> 
                 </Card>
                 </section>
+                }
+
+                {this.state.rolId == localStorage.getItem("rolsecretaria") &&
+                <section>
+                <Card style={{ width: '100%',height:'100%'}}>
+                <Card.Title style={{ textAlign:'center'}}>Miembro de {this.state.rol}: {this.state.usuario.nombre} {this.state.usuario.apellidos}</Card.Title>
+                    <div class="content">
+                            <Card><Card.Header>Funciones del miembro de {this.state.rol}</Card.Header></Card>
+                            <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
+                            <Card.Header></Card.Header>
+                            <Card.Title></Card.Title>
+                            <Card.Body>
+                            {funciones}                                
+                            </Card.Body>
+                            </Card>
+                    </div> 
+                </Card>
+                </section>
+                }
+
                 <aside>
                     <div style={{height:'70%'}}>
                     <Card  style={{ width: '100%',height:'100%'}}>
