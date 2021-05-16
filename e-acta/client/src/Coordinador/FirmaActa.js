@@ -12,41 +12,105 @@ import Row from 'react-bootstrap/Row';
 import '../css/coordinadorx/coord_asignatura.css';
 import Col from 'react-bootstrap/Col';
 import Image from 'react-bootstrap/Image';
+import axios from 'axios';
 
 export default class FirmaActa extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            users : [
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                {"user":"Manolo","nota":7},
-                {"user":"Alejandro","nota":0},
-                {"user":"Javier","nota":5},
-                {"user":"Elvira","nota":5},
-                {"user":"Andres","nota":5},
-                {"user":"Pablo","nota":5},
-                {"user":"Camilo","nota":3},
-                {"user":"Ludovico","nota":10},
-                {"user":"Manolo","nota":10},
-                {"user":"Alejandro","nota":9},
-                
-            ]
+            users : [],
+            rolsecretaria: 0,
+            roltribunal:0,
+            idasigfirma:0
         };
+        this.firmar = this.firmar.bind(this); // flipante
       }
-      update(){
-          var oldusers = this.state
+      async componentDidMount(){
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE NOTAS********************************
+         ******************************************************************************
+        */
+        let idasig = 0;
+        let responseasig = await axios.get('/app/api/asignaturas');
+        const asignaturas = responseasig.data;
+        //console.log("Asignaturas", asignaturas);
+        asignaturas.forEach(element => {
+            //console.log("elemento asignaturas", element)
+            //console.log("nombre props", this.props.nombre)
+            if(this.props.nombre == element.nombreAsignaturas){
+                idasig = element.id;
+                console.log("id",idasig);
+            }
+        });
+        if(idasig){
+            this.setState({idasigfirma:idasig})
+            var statealumnos = [];
+            let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
+            console.log("responseasignatura",responseasignatura.data)
+            var data = responseasignatura.data;
+            data.forEach(al => {
+                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+            });
+            this.setState({ users: statealumnos})
+        }
+
+
+        /******************************************************************************
+         *********************CONTROL DE DATOS DE ROLES********************************
+         ******************************************************************************
+        */
+        let responseroles = await axios.get('/app/api/roles')
+        
+        responseroles.data.forEach(rol => {
+            if(rol.nombreRol == "Tribunal"){
+                this.setState({roltribunal: rol.id})
+            }
+            if(rol.nombreRol == "Secretaria"){
+                this.setState({rolsecretaria: rol.id})
+            }
+            console.log("Data roles", rol);
+        });
+      }
+      async   firmar(){
+        const ida = this.state.idasigfirma;
+        let firmas=[];
+        let responseasignatura = await axios.get('/app/api/asignaturas/' + ida)
+        let firmado1 = responseasignatura.data.firmado1;
+        let firmado2 = responseasignatura.data.firmado2;
+        let firmado3 = responseasignatura.data.firmado3;
+        let asignueva = responseasignatura.data
+
+        if(!firmado1 && !firmado2 && !firmado3){
+            firmas.push(localStorage.getItem("idroluser"))
+           
+        }
+        if(firmado1 && !firmado2 && !firmado3){
+            firmas.push(firmado1)
+            firmas.push(localStorage.getItem("idroluser"));   
+        }
+        if(firmado1 && firmado2 && !firmado3){
+            firmas.push(firmado1)
+            firmas.push(firmado2)
+            firmas.push(localStorage.getItem("idroluser"));   
+        }
+        if(firmado1 && firmado2 && firmado3){
+            firmas.push(firmado1)
+            firmas.push(firmado2)
+            firmas.push(firmado3)
+        }
+        if(firmas){
+            let r = await axios.put('/app/api/asignaturas/'+ ida,firmas)
+        }
+       
+
+        console.log("jejejejeje", firmas)
+
       }
       
     render() {
+
+       
         //var notas=users.map((user)=>user.nota)
         /*function importar(u) {
             var usersimport = u.map((user)=>{
@@ -54,7 +118,7 @@ export default class FirmaActa extends React.Component{
             })
             return usersimport;
         }*/
-        console.log("eeeeeee",this.props.userAsig[0].idRol)
+        console.log("eeeeeee",this.props.idRolUser)
         return (
                 <section>
                     <div class="titulo">
@@ -86,12 +150,12 @@ export default class FirmaActa extends React.Component{
                             </Card.Body>
                             </Card>
                             <Card.Footer>
-                                {this.props.userAsig[0].idRol === 1 &&(
+                                {this.props.idRolUser == this.state.roltribunal &&(
                                 <Container>
                                     <Row className="justify-content-md-end">
                                     <Col xs lg="2">
                                         <Button onClick={this.props.handlerStateChild} variant="light">Cancelar</Button>
-                                        <Button variant="danger">Firmar</Button>
+                                        <Button onClick={()=>this.firmar()} variant="danger">Firmar</Button>
                                     </Col>
                                     </Row>
                                 </Container>

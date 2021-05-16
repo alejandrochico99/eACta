@@ -14,23 +14,42 @@ import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
+import { local } from 'd3-selection';
 
 export const Asignaturas = () =>{
     const[asig,setAsig] = useState([]);
-    useEffect( async ()=>{
-            let response = await axios.get('/app/api/asignaturas');
-           // console.log("Usuario", response.data);
-            setAsig(response.data)
-    },[])
-    var userName= localStorage.getItem("username");
+    const[iduser,setIdUser] = useState(localStorage.getItem("iduser"));
+    const[userName, setUserName] = useState("")
     const[asignaturaSelected,setAsignaturaSelected] = useState(false);
     const[asignaturaFirmaSelected,setAsignaturaFirmaSelected] = useState(false);
     const[indiceAsignatura,setIndiceAsignatura] = useState(-1);
     const[nombreAsignatura,setnombreAsignatura] = useState("");
-    const[users,setUser]=useState([]);
-    console.log("UseEffect Info Usuario:", users);
+    const[rolusers,setRolUser]=useState(localStorage.getItem("idroluser"));
+    console.log("UseEffect Info Usuario:", rolusers);
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
-    useEffect(()=>{
+    useEffect( async ()=>{
+        if(iduser){
+            console.log("iduser",rolusers);
+            console.log("localStorage",localStorage.getItem("roltribunal")); 
+            if(rolusers == localStorage.getItem("roltribunal")){
+                let response = await axios.get('/app/api/usuarios/'+iduser);
+                console.log("Usuario", response.data);
+                setAsig(response.data.asignaturas)
+                console.log("true",rolusers)
+                setUserName(response.data.nombre + " " + response.data.apellidos)
+            }
+            else if(rolusers == 3){ //NOSE AHORA
+                let response = await axios.get('/app/api/asignaturas');
+                setAsig(response.data.asignaturas)
+            }
+        }else{
+            console.log("Usuario");
+            setIdUser(localStorage.getItem("iduser"));
+            console.log("false",rolusers)
+        }
+        
+    },[])
+    /*useEffect(()=>{
         if(localStorage.getItem("username")=="admin"){
             const usersApi = [
                 {"user":"admin","password":"adminpass","idRol":1}
@@ -43,9 +62,9 @@ export const Asignaturas = () =>{
             ];
             setUser(usersApi);
         }
-    },[])
+    },[])*/
     function handlerState(){
-        console.log("userrr",users);
+        //console.log("userrr",rolusers);
         setAsignaturaSelected(false);
         setAsignaturaFirmaSelected(false);
     }
@@ -76,12 +95,13 @@ export const Asignaturas = () =>{
                 <button><Link to="/datos">Mis Datos</Link></button>
                 <button><Link to="/alumnos">Expedientes</Link></button>
                 <button>Configuración</button>
+                <button><Link to="/">Logout</Link></button>
             </nav>
             
-            { !asignaturaSelected && !asignaturaFirmaSelected &&
+            { !asignaturaSelected && !asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
-                <Card.Title style={{ textAlign:'center'}}>Asignaturas de {localStorage.getItem("username")}</Card.Title>
+                <Card.Title style={{ textAlign:'center'}}>Asignaturas de {userName}</Card.Title>
                 <div class="content">
                         <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                         <Card.Header></Card.Header>
@@ -93,7 +113,7 @@ export const Asignaturas = () =>{
                                             <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
                                             <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
                                             <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
-                                            {console.log("Map asignaturas",a)},
+                                            {console.log("Map asignaturas",a)}
                                             {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
                                  </Container>
@@ -106,11 +126,42 @@ export const Asignaturas = () =>{
                 </section>
 
             }
-            {asignaturaSelected && !asignaturaFirmaSelected && users[0].idRol === 1 && (
-                <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} userAsig={users}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
+
+            { rolusers == localStorage.getItem("rolsecretaria") &&
+                <section>
+                <Card style={{ width: '100%',height:'100%'}}>
+                <Card.Title style={{ textAlign:'center'}}>Miembro de secretaría: {userName}</Card.Title>
+                <div class="content">
+                        <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
+                        <Card.Header></Card.Header>
+                        <Card.Body>
+                            <Card.Text >
+                                 {asig.map((a)=>
+                                 
+                                 <Container>
+                                        <ListGroup  horizontal className="my-2">
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
+                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
+                                            {console.log("Map asignaturas",a)}
+                                            {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
+                                        </ListGroup>
+                                 </Container>
+                                 )}
+                            </Card.Text>
+                        </Card.Body>
+                        </Card>
+                </div> 
+                </Card>
+                </section>
+
+            }
+
+            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //coger los roles desde la bbdd
+                <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
-            {!asignaturaSelected && asignaturaFirmaSelected && users[0].idRol === 1 && ( //cambiar roles
-                <FirmaActa nombre={nombreAsignatura} handlerStateChild={handlerState} userAsig={users}> </FirmaActa> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
+            {!asignaturaSelected && asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //cambiar roles
+                <FirmaActa nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </FirmaActa> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
                 <div style={{height:'70%'}}>
