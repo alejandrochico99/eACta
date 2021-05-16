@@ -40,6 +40,8 @@ export const Asignaturas = () =>{
             }
             else if(rolusers == localStorage.getItem("rolsecretaria")){ // SECRETARIA
                 let response = await axios.get('/app/api/asignaturas');
+                let response2 = await axios.get('/app/api/usuarios/'+iduser);
+                setUserName(response2.data.nombre + " " + response2.data.apellidos)
                 setAsig(response.data.asignaturas)
             }
         }else{
@@ -179,8 +181,7 @@ export const Asignaturas = () =>{
                     <Card.Body style={{ width: '100%',height:'100%'}}>
                         <Card.Title>Panel de Usuario</Card.Title>
                         <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
+                            {userName}
                         </Card.Text>
                         <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                     </Card.Body>

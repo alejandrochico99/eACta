@@ -7,12 +7,22 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import { local } from 'd3-selection';
+import axios from 'axios';
 
 export default class General extends React.Component {
    
-   componentDidMount(){
-       
-   }
+    constructor(props) {
+        super(props);
+        this.state =  {user:''};
+    }
+
+    async componentDidMount() {
+        let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
+        this.setState({user: response.data.nombre + " " + response.data.apellidos})
+        console.log(this.state.usuario)
+        console.log(this.state)
+        console.log("repuesta get: ",response);
+    }
   render() {
     return (
         <div class="general-content">
@@ -46,8 +56,7 @@ export default class General extends React.Component {
                     <Card.Body style={{ width: '100%',height:'100%'}}>
                         <Card.Title>Panel de Usuario</Card.Title>
                         <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk of
-                            the card's content.
+                            {this.state.user}
                         </Card.Text>
                         <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                     </Card.Body>

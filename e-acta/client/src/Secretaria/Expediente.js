@@ -25,10 +25,10 @@ export const Alumnos = () =>{
     const[alumnoSelected,setAlumnoSelected] = useState(false);
     const[indiceAlumno,setIndiceAlumno] = useState(-1);
     const[nombreAlumno,setnombreAlumno] = useState("");
-    const[users,setUser]=useState([]);
-    console.log("UseEffect Info Usuario:", users);
+    const[user,setUser]=useState("");
+    console.log("UseEffect Info Usuario:", user);
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
-    useEffect(()=>{
+    /*(()=>{
         if(localStorage.getItem("username")=="admin"){
             const usersApi = [
                 {"user":"admin","password":"adminpass","idRol":1}
@@ -41,13 +41,17 @@ export const Alumnos = () =>{
             ];
             setUser(usersApi);
         }
-    },[])
+    },[])*/
     /*
     function handlerState(){
         console.log("userrr",users);
         //setAlumnoSelected(false);
         setAsignaturaFirmaSelected(false);
     }*/
+    useEffect(async ()=>{
+        const response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
+        setUser(response.data.nombre + " " + response.data.apellidos)
+    })
     function propsAlumno(nombre,indice){
         setAlumnoSelected(true);
         setnombreAlumno(nombre);
@@ -104,16 +108,14 @@ export const Alumnos = () =>{
                         <Card.Body style={{ width: '100%',height:'100%'}}>
                             <Card.Title>Panel de Usuario</Card.Title>
                             <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
+                                {user}
                             </Card.Text>
-                            <Button variant="primary"><Link style={{color:"black"}} to="/datos">Go somewhere</Link></Button>
+                            <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                         </Card.Body>
                     </Card>
                 </div>
                 <div class="general-help">
-                    <Button variant="primary">Ayuda</Button>
-                    <Button variant="primary">Contacto</Button>
+                    <Button variant="primary"><Link style={{color:"white"}} to="/contacto">Contacto</Link></Button>
                 </div>
             </aside>
         </div>
