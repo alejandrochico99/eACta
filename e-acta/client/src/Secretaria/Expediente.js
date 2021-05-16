@@ -80,7 +80,7 @@ export const Alumnos = () =>{
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Text >
-                                    {alum.filter(alum1 => alum1.id === 1).map((a)=>
+                                    {alum.filter(alum1 => alum1.idRol.id === 1).map((a)=>
                                         <Container>
                                             <ListGroup  horizontal className="my-2">
                                                 <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombre}</ListGroupItem>
