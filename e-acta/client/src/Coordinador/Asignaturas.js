@@ -91,7 +91,7 @@ export const Asignaturas = () =>{
         var showAsignaturas
         if (asig !== undefined) {
             showAsignaturas = asig.map((a)=>{
-                if(a.firmado1 && a.firmado2 && firmado3){ 
+                if(a.firmado1 && a.firmado2 && a.firmado3){ 
                     <Container>
                         <ListGroup  horizontal className="my-2">
                             <ListGroupItem variant="info">Acrónimo de la Asignatura: {a.siglas}</ListGroupItem>
