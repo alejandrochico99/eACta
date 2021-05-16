@@ -38,7 +38,7 @@ export const Asignaturas = () =>{
                 console.log("true",rolusers)
                 setUserName(response.data.nombre + " " + response.data.apellidos)
             }
-            else if(rolusers == 3){ //NOSE AHORA
+            else if(rolusers == localStorage.getItem("rolsecretaria")){ // SECRETARIA
                 let response = await axios.get('/app/api/asignaturas');
                 setAsig(response.data.asignaturas)
             }
@@ -86,6 +86,26 @@ export const Asignaturas = () =>{
         console.log("Nombre: ", nombreAsignatura);
         console.log("UserName",localStorage.getItem("username"));
     },[asignaturaSelected]);
+
+    function showAsig(){
+        var showAsignaturas
+        if (asig !== undefined) {
+            showAsignaturas = asig.map((a)=>{
+                if(a.firmado1 && a.firmado2 && firmado3){ 
+                    <Container>
+                        <ListGroup  horizontal className="my-2">
+                            <ListGroupItem variant="info">Acrónimo de la Asignatura: {a.siglas}</ListGroupItem>
+                            <ListGroupItem variant="info">Nombre de la asignatura: {a.nombreAsignaturas}</ListGroupItem>
+                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                        </ListGroup>
+                    </Container>
+                    
+                }
+            })
+         
+        } 
+        return showAsignaturas
+    }
 
     return (
         <div class="general-content">
@@ -136,18 +156,7 @@ export const Asignaturas = () =>{
                         <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Text >
-                                 {asig.map((a)=>
-                                 
-                                 <Container>
-                                        <ListGroup  horizontal className="my-2">
-                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
-                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
-                                            <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>FIRMAR</Button></ListGroupItem>
-                                            {console.log("Map asignaturas",a)}
-                                            {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
-                                        </ListGroup>
-                                 </Container>
-                                 )}
+                                {showAsig()}
                             </Card.Text>
                         </Card.Body>
                         </Card>
