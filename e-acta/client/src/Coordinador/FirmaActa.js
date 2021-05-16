@@ -34,20 +34,19 @@ export default class FirmaActa extends React.Component{
         let idasig = 0;
         let responseasig = await axios.get('/app/api/asignaturas');
         const asignaturas = responseasig.data;
-        //console.log("Asignaturas", asignaturas);
+       
         asignaturas.forEach(element => {
-            //console.log("elemento asignaturas", element)
-            //console.log("nombre props", this.props.nombre)
+     
             if(this.props.nombre == element.nombreAsignaturas){
                 idasig = element.id;
-                console.log("id",idasig);
+              
             }
         });
         if(idasig){
             this.setState({idasigfirma:idasig})
             var statealumnos = [];
             let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
-            console.log("responseasignatura",responseasignatura.data)
+         
             var data = responseasignatura.data;
             data.forEach(al => {
                 statealumnos.push({"user":al.usuario.nombre + " "+al.usuario.apellidos,"nota":al.nota})
@@ -69,14 +68,14 @@ export default class FirmaActa extends React.Component{
             if(rol.nombreRol == "Secretaria"){
                 this.setState({rolsecretaria: rol.id})
             }
-            console.log("Data roles", rol);
+           
         });
       }
       async   firmar(){
         const ida = this.state.idasigfirma;
         let firmas=[];
         let responseasignatura = await axios.get('/app/api/asignaturas/' + ida)
-        console.log("asignatura",responseasignatura.data)
+    
         let firmado1 = responseasignatura.data.firmado1;
         let firmado2 = responseasignatura.data.firmado2;
         let firmado3 = responseasignatura.data.firmado3;
@@ -127,7 +126,7 @@ export default class FirmaActa extends React.Component{
                 let alumnoNota = await axios.get("/app/api/notas/get/alumno/"+alumno.data.id+"/"+ida)
                 mail.push("Ha obtenido en "+responseasignatura.data.nombreAsignaturas+": "+alumnoNota.data.nota)
                 let respNotas = await axios.post("app/api/email/sendMail", mail)
-                console.log(respNotas)
+               
 
             }
         }

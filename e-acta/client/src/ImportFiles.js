@@ -15,7 +15,7 @@ const ImportFiles = (nombre) => {
 
       var parts = filename.split(".");
       const fileType = parts[parts.length - 1];
-      console.log("fileType", fileType); //ex: zip, rar, jpg, svg etc.
+    
 
       setImage(files[0]);
     }
@@ -27,9 +27,7 @@ const ImportFiles = (nombre) => {
         Papa.parse(image, { // 1 puta hora para esto :(
             complete: function(results) {
                 csv = results.data
-                console.log(results);
-                console.log("Primer alumno",results.data[0][0])
-                console.log("Nota Primer alumno",results.data[0][1])
+
                 
             }
         });
@@ -37,52 +35,37 @@ const ImportFiles = (nombre) => {
         let idasig = 0;
         let responseasig = await axios.get('/app/api/asignaturas');
         const asignaturas = responseasig.data;
-        //console.log("Asignaturas", asignaturas);
+
         asignaturas.forEach(element => {
-            //console.log("elemento asignaturas", element)
-            //console.log("nombre props", this.props.nombre)
             if(nombreasig.nombre == element.nombreAsignaturas){
                 idasig = element.id;
-                console.log("id",idasig);
+               
             }
         });
         //obtenemos id de los alumnos del csv, que son los mismos que los de la bbdd...
         if(idasig){
           var statealumnos = [];
           let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
-          console.log("responseasignatura",responseasignatura.data)
+          
           var data = responseasignatura.data;
-          console.log("alumnosimport",data)
+          
           data.forEach(element => {
             csv.forEach(c => {
                 if((element.usuario.nombre == c[0]) && (element.usuario.apellidos == c[1])){
-                  console.log("c",c[1])
-                  console.log("e",element.usuario)
+                 
                   objnotas.push({"user":element.usuario.id,"nota":c[2]})
                 }
             });
             statealumnos.push(element.usuario.id)
           });
-          console.log("statesss",objnotas)
+        
         }
         await objnotas.forEach( async (d) => {
-          console.log('/app/api/notas/put/alumno/'+d.user+'/'+idasig+'/'+d.nota)
+          
             let response = await axios.put('/app/api/notas/put/alumno/'+d.user+'/'+idasig+'/'+d.nota);
       });  
   },[image])
   useEffect(async () =>{
-    /*let user = await axios.get('/app/api/usuarios/2');
-    let asig = await axios.get('/app/api/asignaturas/3');
-    const nota = {
-      usuario: user.data,
-      asignatura: asig.data,
-      nota: 6
-    }
-    let response = await axios.get('/app/api/notas');*/
-    //console.log("OBJETO", response.data)
-    //console.log("JSON", JSON.stringify(response.data))
-    /*let response = await axios.post('/app/api/notas',{nota}); // el nombre de la variable no importa, y el formato es {"nombre" : "valor"}
-    console.log("notas", response)*/
   },[])
 
   const onButtonClick = () => {

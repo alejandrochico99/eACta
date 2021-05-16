@@ -26,9 +26,6 @@ export default class contacto extends React.Component {
         let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         this.setState({email: response.data.email})
         this.setState({user: response.data.nombre + " "+ response.data.apellidos})
-        console.log(this.state.email)
-        console.log(this.state)
-        console.log("repuesta get: ",response);
     }
     
       render() {
@@ -119,7 +116,7 @@ export default class contacto extends React.Component {
           send.push(subject)
           send.push(this.state.message)
           const resp = axios.post("/app/api/email/sendMail", send)
-          console.log(resp) 
+      
           alert("Correo enviado correctamente")
       }
 

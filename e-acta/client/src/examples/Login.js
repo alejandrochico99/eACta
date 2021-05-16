@@ -39,7 +39,7 @@ export default function Login() {
     let res = await axios.get('/app/api/usuarios/email/'+ email);
     setUser(res.data);
     if(res.data.idRol){
-      console.log("res.data",res.data.idRol.id)
+    
       localStorage.setItem("idroluser",res.data.idRol.id)
     }
     
@@ -61,9 +61,9 @@ export default function Login() {
               setRolAlumno(rol.id)
               localStorage.setItem("rolsecretaria",rol.id)
             }
-             console.log("Data roles", rol);
+            
          });
-         console.log("roles",localStorage.getItem("roltribunal"));
+       
 
 
   }
@@ -74,10 +74,8 @@ export default function Login() {
     }else{
       let res = await axios.get('/app/api/usuarios/email/'+ email);
       if(res.data.idRol.id == rolalumno){
-        console.log("ha entrado un alumno");
+      
       }
-      console.log("id secretaria", localStorage.getItem("rolsecretaria"))
-      console.log("Response login: ",res.data)
       localStorage.setItem("iduser",res.data.id);
     }
     

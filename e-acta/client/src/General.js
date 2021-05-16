@@ -19,9 +19,6 @@ export default class General extends React.Component {
     async componentDidMount() {
         let response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         this.setState({user: response.data.nombre + " " + response.data.apellidos})
-        console.log(this.state.usuario)
-        console.log(this.state)
-        console.log("repuesta get: ",response);
     }
   render() {
     return (

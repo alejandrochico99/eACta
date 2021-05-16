@@ -32,8 +32,6 @@ export default function Login() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log("Usuario",email);
-    console.log("Password",password);
 
   }
   function SaveUserData(){
