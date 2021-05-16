@@ -16,7 +16,6 @@ export default class General extends React.Component {
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
                 <button><Link to="/datos">Mis Datos</Link></button>
                 <button><Link to="/alumnos">Expedientes</Link></button>
-                <button>Configuración</button>
                 <button><Link to="/">Logout</Link></button>
 
             </nav>

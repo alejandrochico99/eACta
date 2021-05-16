@@ -13,7 +13,6 @@ import {
 import Login from './examples/Login.js';
 
 function App() {
-
   return (
     <Router>
       <Switch> 
