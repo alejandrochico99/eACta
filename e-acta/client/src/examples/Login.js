@@ -57,7 +57,7 @@ export default function Login() {
               setRolAlumno(rol.id)
               localStorage.setItem("roltribunal",rol.id)
             }
-            if(rol.nombreRol == "Secretaria"){
+            if((rol.nombreRol == "Secretaria")|| (rol.nombreRol == "Secretaría")||(rol.nombreRol == "secretaria")){
               setRolAlumno(rol.id)
               localStorage.setItem("rolsecretaria",rol.id)
             }
