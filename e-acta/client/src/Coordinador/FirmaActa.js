@@ -50,7 +50,7 @@ export default class FirmaActa extends React.Component{
             console.log("responseasignatura",responseasignatura.data)
             var data = responseasignatura.data;
             data.forEach(al => {
-                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+                statealumnos.push({"user":al.usuario.nombre + " "+al.usuario.apellidos,"nota":al.nota})
             });
             this.setState({ users: statealumnos})
         }

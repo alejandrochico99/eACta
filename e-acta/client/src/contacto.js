@@ -35,11 +35,10 @@ export default class contacto extends React.Component {
             <nav>
                 <button><Link to="/general">General</Link></button>
                 <button><Link to="/asignaturas">Asignaturas</Link></button>
-                <button><Link to="/datos">Mis Datos</Link></button>
-                <button><Link to="/alumnos">Expedientes</Link></button>
-                <button>Configuración</button>
+                {localStorage.getItem("idroluser") == localStorage.getItem("rolsecretaria") &&(
+                    <button><Link to="/alumnos">Expedientes</Link></button>
+                )}
                 <button><Link to="/">Logout</Link></button>
-
             </nav>
             <section>
             <Card style={{ width: '100%',height:'100%'}}>
@@ -90,7 +89,7 @@ export default class contacto extends React.Component {
                             Some quick example text to build on the card title and make up the bulk of
                             the card's content.
                         </Card.Text>
-                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Go somewhere</Link></Button>
+                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                     </Card.Body>
                     </Card>
                 </div>
