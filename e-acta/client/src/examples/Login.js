@@ -27,18 +27,8 @@ export default function Login() {
   ];
 
   useEffect(async () =>{
-     /******************************************************************************
-         *********************CONTROL DE DATOS DE ROLES********************************
-         ******************************************************************************
-        */
-         let responseroles = await axios.get('/app/api/roles')
-         responseroles.data.forEach(rol => {
-             if(rol.nombreRol == "Alumno"){
-                 setRolAlumno(rol.id)
-             }
-             console.log("Data roles", rol);
-         });
-  })
+    
+  },[])
   function changeRoute() {
     if (password==user.password){
      setDis("\general");
@@ -52,6 +42,29 @@ export default function Login() {
 
   async function alerta(){
     localStorage.clear();
+ /******************************************************************************
+         *********************CONTROL DE DATOS DE ROLES********************************
+         ******************************************************************************
+        */
+         let responseroles = await axios.get('/app/api/roles')
+         responseroles.data.forEach(rol => {
+             if(rol.nombreRol == "Alumno"){
+                 setRolAlumno(rol.id)
+                 localStorage.setItem("rolalumno",rol.id)
+             }
+             if(rol.nombreRol == "Tribunal"){
+              setRolAlumno(rol.id)
+              localStorage.setItem("roltribunal",rol.id)
+            }
+            if(rol.nombreRol == "Secretaria"){
+              setRolAlumno(rol.id)
+              localStorage.setItem("rolsecretaria",rol.id)
+            }
+             console.log("Data roles", rol);
+         });
+         console.log("roles",localStorage.getItem("roltribunal"));
+
+
     if (password!==user.password){
       alert("Nombre de usuario o contraseña incorrecto.");
     }else{

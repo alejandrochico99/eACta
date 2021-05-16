@@ -29,14 +29,16 @@ export const Asignaturas = () =>{
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
     useEffect( async ()=>{
         if(iduser){
-            if(rolusers == 2){
+            console.log("iduser",rolusers);
+            console.log("localStorage",localStorage.getItem("roltribunal")); 
+            if(rolusers == localStorage.getItem("roltribunal")){
                 let response = await axios.get('/app/api/usuarios/'+iduser);
                 console.log("Usuario", response.data);
                 setAsig(response.data.asignaturas)
                 console.log("true",rolusers)
                 setUserName(response.data.nombre + " " + response.data.apellidos)
             }
-            else if(rolusers == 3){
+            else if(rolusers == 3){ //NOSE AHORA
                 let response = await axios.get('/app/api/asignaturas');
                 setAsig(response.data.asignaturas)
             }
@@ -94,7 +96,7 @@ export const Asignaturas = () =>{
                 <button>Configuración</button>
             </nav>
             
-            { !asignaturaSelected && !asignaturaFirmaSelected && iduser == 2 &&
+            { !asignaturaSelected && !asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
                 <Card.Title style={{ textAlign:'center'}}>Asignaturas de {userName}</Card.Title>
@@ -123,7 +125,7 @@ export const Asignaturas = () =>{
 
             }
 
-            { iduser == 3 &&
+            { rolusers == localStorage.getItem("rolsecretaria") &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
                 <Card.Title style={{ textAlign:'center'}}>Miembro de secretaría: {userName}</Card.Title>
@@ -153,10 +155,10 @@ export const Asignaturas = () =>{
 
             }
 
-            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == 2 && ( //coger los roles desde la bbdd
+            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //coger los roles desde la bbdd
                 <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
-            {!asignaturaSelected && asignaturaFirmaSelected && rolusers == 2 && ( //cambiar roles
+            {!asignaturaSelected && asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //cambiar roles
                 <FirmaActa nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </FirmaActa> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             <aside>
