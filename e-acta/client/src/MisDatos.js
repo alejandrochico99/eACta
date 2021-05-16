@@ -9,20 +9,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 import ListGroupItem from 'react-bootstrap/esm/ListGroupItem';
 import axios from 'axios';
 
-/*
-<Card.Text >
-                                {this.state.usuario.asignaturas.map((a)=>
-                                 <Container>
-                                        <ListGroup  horizontal className="my-2">
-                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>id: {a.id}</ListGroupItem>
-                                            <ListGroupItem variant="info">Acrónimo de la Asignatura: {a.siglas}</ListGroupItem>
-                                            <ListGroupItem variant="info">Nombre de la asignatura: {a.nombreAsignaturas}</ListGroupItem>
-                                        </ListGroup>
-                                 </Container>
-                                 )}
-                                </Card.Text>
-*/
-
 export default class MisDatos extends React.Component {
 
     constructor(props) {

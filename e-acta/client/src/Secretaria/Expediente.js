@@ -12,6 +12,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container"
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 import Row from 'react-bootstrap/Row';
+import GenExpediente from './GenExpediente';
 import axios from 'axios';
 
 export const Alumnos = () =>{
@@ -26,6 +27,7 @@ export const Alumnos = () =>{
     const[indiceAlumno,setIndiceAlumno] = useState(-1);
     const[nombreAlumno,setnombreAlumno] = useState("");
     const[user,setUser]=useState("");
+    const[expediente, setExpediente] = useState([])
     console.log("UseEffect Info Usuario:", user);
     //FUTURA LLAMADA QUE NOS DIGA EL ROL DEL USUARIO A PARTIR DE SU NUMBRE DE USUARIO
     /*(()=>{
@@ -52,10 +54,18 @@ export const Alumnos = () =>{
         const response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         setUser(response.data.nombre + " " + response.data.apellidos)
     })
-    function propsAlumno(nombre,indice){
+    async function propsAlumno(nombre,indice, id){
         setAlumnoSelected(true);
         setnombreAlumno(nombre);
         setIndiceAlumno(indice);
+        const response = await axios.get("/app/api/notas/alumnos/"+id)
+        setExpediente(response.data)
+        alert("Generado y enviado el Expediente")
+        const resp = axios.post("/app/api/email/sendGrades/secretaria.etsit.upm@gmail.com", response.data)
+    }
+
+    function handlerState(){
+        setAlumnoSelected(false);
     }
 
     useEffect(()=>{
@@ -83,11 +93,11 @@ export const Alumnos = () =>{
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Text >
-                                    {alum.filter(alum1 => alum1.idRol.id === localStorage.getItem("rolalumno")).map((a)=>
+                                    {alum.filter(alum1 => alum1.idRol.id == localStorage.getItem("rolalumno")).map((a)=>
                                         <Container>
                                             <ListGroup  horizontal className="my-2">
-                                                <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombre}</ListGroupItem>
-                                                <ListGroupItem variant="info"><Button onClick={()=>propsAlumno(a.nombre,0)}>Generar expediente</Button></ListGroupItem>
+                                                <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombre + " " + a.apellidos}</ListGroupItem>
+                                                <ListGroupItem variant="info"><Button onClick={()=>propsAlumno(a.nombre,0,a.id)}>Generar expediente</Button></ListGroupItem>
                                                 {console.log("Map alumnos",a)}
                                                 {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                             </ListGroup>
@@ -101,6 +111,11 @@ export const Alumnos = () =>{
             </section>
 
             }
+
+            { alumnoSelected &&
+                <GenExpediente expediente={expediente} handlerStateChild={handlerState}/>
+            }
+
             <aside>
                 <div style={{height:'70%'}}>
                     <Card  style={{ width: '100%',height:'100%'}}>
