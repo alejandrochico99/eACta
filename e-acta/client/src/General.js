@@ -49,7 +49,7 @@ export default class General extends React.Component {
                             Some quick example text to build on the card title and make up the bulk of
                             the card's content.
                         </Card.Text>
-                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Go somewhere</Link></Button>
+                        <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                     </Card.Body>
                     </Card>
                 </div>
