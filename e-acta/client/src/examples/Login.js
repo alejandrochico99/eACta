@@ -43,9 +43,9 @@ export default function Login() {
       localStorage.setItem("idroluser",res.data.idRol.id)
     }
     
-    /******************************************************************************
-         *********************CONTROL DE DATOS DE ROLES********************************
-         ******************************************************************************
+    /**************************
+         ********CONTROL DE DATOS DE ROLES***********
+         **************************
         */
          let responseroles = await axios.get('/app/api/roles')
          responseroles.data.forEach(rol => {
@@ -88,7 +88,9 @@ export default function Login() {
   return(
     
     <div className="Login" onKeyPress={getUser} onMouseMove={changeRoute}>
+     
     <Form >
+    <img src="loginImage.jpeg" class="img-fluid" class="img-responsive center-block" alt="Responsive image"></img>
       <Form.Group size="lg" controlId="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
@@ -111,7 +113,3 @@ export default function Login() {
     </div>
   );
 }
-
-
-
-
