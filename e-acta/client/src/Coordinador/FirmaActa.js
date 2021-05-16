@@ -76,28 +76,42 @@ export default class FirmaActa extends React.Component{
         const ida = this.state.idasigfirma;
         let firmas=[];
         let responseasignatura = await axios.get('/app/api/asignaturas/' + ida)
+        console.log("asignatura",responseasignatura.data)
         let firmado1 = responseasignatura.data.firmado1;
         let firmado2 = responseasignatura.data.firmado2;
         let firmado3 = responseasignatura.data.firmado3;
-        let asignueva = responseasignatura.data
-
+        
         if(!firmado1 && !firmado2 && !firmado3){
             firmas.push(localStorage.getItem("idroluser"))
            
         }
         if(firmado1 && !firmado2 && !firmado3){
-            firmas.push(firmado1)
-            firmas.push(localStorage.getItem("idroluser"));   
+            if(firmado1 != localStorage.getItem("idroluser")){
+                firmas.push(firmado1)
+                firmas.push(localStorage.getItem("idroluser")); 
+            }else{
+                firmas.push(firmado1)
+                alert("ya firmada por usted")
+            }
         }
         if(firmado1 && firmado2 && !firmado3){
-            firmas.push(firmado1)
-            firmas.push(firmado2)
-            firmas.push(localStorage.getItem("idroluser"));   
+            if((firmado1 != localStorage.getItem("idroluser"))&&(firmado2 != localStorage.getItem("idroluser"))){
+                firmas.push(firmado1)
+                firmas.push(firmado2)
+                firmas.push(localStorage.getItem("idroluser"));
+            }else{
+                firmas.push(firmado1)
+                firmas.push(firmado2)
+                alert("ya firmada por usted")
+            }
+               
         }
         if(firmado1 && firmado2 && firmado3){
             firmas.push(firmado1)
             firmas.push(firmado2)
             firmas.push(firmado3)
+            alert("ya firmada por usted")
+            
         }
         if(firmas){
             let r = await axios.put('/app/api/asignaturas/'+ ida,firmas)
