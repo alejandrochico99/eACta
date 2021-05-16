@@ -110,16 +110,15 @@ export default class MisDatos extends React.Component {
                         <Card.Body style={{ width: '100%',height:'100%'}}>
                             <Card.Title>Panel de Usuario</Card.Title>
                             <Card.Text>
-                                Some quick example text to build on the card title and make up the bulk of
-                                the card's content.
+                                {this.state.usuario.nombre + " " + this.state.usuario.apellidos}
                             </Card.Text>
                             <Button variant="primary"><Link style={{color:"black"}} to="/datos">Mis Datos</Link></Button>
                         </Card.Body>
                         </Card>
                     </div>
                     <div class="general-help">
-                  <Button variant="primary"><Link style={{color:"white"}} to="/contacto">Contacto</Link></Button>
-                </div>
+                        <Button variant="primary"><Link style={{color:"white"}} to="/contacto">Contacto</Link></Button>
+                    </div>
                 </aside>
             </div>
         );
