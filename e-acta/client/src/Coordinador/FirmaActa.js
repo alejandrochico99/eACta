@@ -82,23 +82,23 @@ export default class FirmaActa extends React.Component{
         let firmado3 = responseasignatura.data.firmado3;
         
         if(!firmado1 && !firmado2 && !firmado3){
-            firmas.push(localStorage.getItem("idroluser"))
+            firmas.push(localStorage.getItem("iduser"))
            
         }
         if(firmado1 && !firmado2 && !firmado3){
-            if(firmado1 != localStorage.getItem("idroluser")){
+            if(firmado1 != localStorage.getItem("iduser")){
                 firmas.push(firmado1)
-                firmas.push(localStorage.getItem("idroluser")); 
+                firmas.push(localStorage.getItem("iduser")); 
             }else{
                 firmas.push(firmado1)
                 alert("ya firmada por usted")
             }
         }
         if(firmado1 && firmado2 && !firmado3){
-            if((firmado1 != localStorage.getItem("idroluser"))&&(firmado2 != localStorage.getItem("idroluser"))){
+            if((firmado1 != localStorage.getItem("iduser"))&&(firmado2 != localStorage.getItem("iduser"))){
                 firmas.push(firmado1)
                 firmas.push(firmado2)
-                firmas.push(localStorage.getItem("idroluser"));
+                firmas.push(localStorage.getItem("iduser"));
             }else{
                 firmas.push(firmado1)
                 firmas.push(firmado2)
@@ -115,6 +115,21 @@ export default class FirmaActa extends React.Component{
         }
         if(firmas){
             let r = await axios.put('/app/api/asignaturas/'+ ida,firmas)
+            if(firmado1 && firmado2 && firmado3){
+                // se debería enviar el post para enviar los mensajes de publicación de actas a los alumnos a este endpoint: /api/email/sendAllMails+
+                // pero solo tenemos una cuenta valida: p.rruiz@alumnos.upm.es, 
+                //asi que solo enviaremos la nota a este correo con el endpoint que se va a usar a continuación:
+                var mail = []
+                //mail.push("p.rruiz@alumnos.upm.es")
+                mail.push("secretaria.etsit.upm@gmail.com")
+                mail.push("Calificaciones finales: "+ responseasignatura.data.nombreAsignaturas)
+                let alumno = await axios.get("/app/api/usuarios/email/p.rruiz@alumnos.upm.es")
+                let alumnoNota = await axios.get("/app/api/notas/get/alumno/"+alumno.data.id+"/"+ida)
+                mail.push("Ha obtenido en "+responseasignatura.data.nombreAsignaturas+": "+alumnoNota.data.nota)
+                let respNotas = await axios.post("app/api/email/sendMail", mail)
+                console.log(respNotas)
+
+            }
         }
        
 
