@@ -27,7 +27,7 @@ export default function Login() {
   ];
 
   useEffect(async () =>{
-    
+    localStorage.clear();
   },[])
   function changeRoute() {
     if (password==user.password){
@@ -41,7 +41,7 @@ export default function Login() {
   }
 
   async function alerta(){
-    localStorage.clear();
+    
  /******************************************************************************
          *********************CONTROL DE DATOS DE ROLES********************************
          ******************************************************************************
