@@ -75,6 +75,7 @@ export default class MisDatos extends React.Component {
                     <button><Link to="/general">General</Link></button>
                     <button><Link to="/asignaturas">Asignaturas</Link></button>
                     <button><Link to="/datos">Mis Datos</Link></button>
+                    <button><Link to="/alumnos">Expedientes</Link></button>
                     <button>Configuración</button>
                 </nav>
                 <section>
