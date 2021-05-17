@@ -19,6 +19,7 @@ export default class Asignatura extends React.Component{
         super(props);
         this.state = {
             users : [],
+            asignatura : {},
             rolsecretaria: 0,
             roltribunal:0
         };
@@ -43,8 +44,9 @@ export default class Asignatura extends React.Component{
         if(idasig){
             var statealumnos = [];
             let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
-          
+            let responseasig2 = await axios.get('/app/api/asignaturas/'+idasig);
             var data = responseasignatura.data;
+            this.setState({ asignatura: responseasig2.data })
             data.forEach(al => {
                 statealumnos.push({"user":al.usuario.nombre + " "+al.usuario.apellidos,"nota":al.nota})
             });
@@ -89,7 +91,7 @@ export default class Asignatura extends React.Component{
          
             var data = responseasignatura.data;
             data.forEach(al => {
-                statealumnos.push({"user":al.usuario.nombre,"nota":al.nota})
+                statealumnos.push({"user":al.usuario.nombre + " " + al.usuario.apellidos,"nota":al.nota})
             });
             this.setState({ users: statealumnos})
         }
@@ -108,7 +110,7 @@ export default class Asignatura extends React.Component{
                     <Card style={{ width: '100%',height:'100%'}}>
                     <Card.Title>Acta {this.props.nombre}</Card.Title>
                     <div class="content">
-                            <Card style={{ width: '100%',height:'30rem', overflow:"auto"}}>
+                            <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                             <Card.Header></Card.Header>
                             <Card.Body>
                                 <Card.Text >
@@ -124,18 +126,15 @@ export default class Asignatura extends React.Component{
                             </Card.Body>
                             </Card>
                             {this.props.idRolUser == this.state.roltribunal &&( //Tribunal
+                                
                                 <Container>
+                                    {!this.state.asignatura.subidas && 
                                     <Button variant="primary"><ImportFiles nombre={this.props.nombre}>Importar</ImportFiles></Button>
+                                    }
                                     <Button variant="danger" onClick={() => this.importbutton()}>Reload</Button>
                                 </Container>
                             
                            
-                            )}
-                            {this.props.idRolUser == this.state.rolsecretaria &&( //Secretaria
-                                <Container>
-                                    <Button variant="danger">Rechazar Acta</Button>
-                                    <Button variant="primary">Aprobar Acta</Button>
-                                </Container>
                             )}
                         <Card.Footer>
                             

@@ -64,10 +64,12 @@ export const Alumnos = () =>{
         const response = await axios.get("/app/api/notas/alumnos/"+id)
         setExpediente(response.data)
         alert("Generado y enviado el Expediente")
+        fullExp.push(nombre)
+        fullExp.push(apellidos)
         response.data.forEach(nota => {fullExp.push(nota.asignatura.nombreAsignaturas); fullExp.push(nota.nota);} )
         //console.log(fullExp)
         console.log(fullExp)
-        //const resp = axios.post("/app/api/email/sendGrades/secretaria.etsit.upm@gmail.com", fullExp)
+        const resp = axios.post("/app/api/email/sendGrades/secretaria.etsit.upm@gmail.com", fullExp)
     }
 
     function handlerState(){

@@ -46,9 +46,9 @@ const ImportFiles = (nombre) => {
         if(idasig){
           var statealumnos = [];
           let responseasignatura = await axios.get('/app/api/notas/asignaturas/' + idasig)
-          
+
           var data = responseasignatura.data;
-          
+
           data.forEach(element => {
             csv.forEach(c => {
                 if((element.usuario.nombre == c[0]) && (element.usuario.apellidos == c[1])){
@@ -63,7 +63,8 @@ const ImportFiles = (nombre) => {
         await objnotas.forEach( async (d) => {
           
             let response = await axios.put('/app/api/notas/put/alumno/'+d.user+'/'+idasig+'/'+d.nota);
-      });  
+      });
+        let fullAsigResponse = await axios.put("/app/api/asignaturas/subidas/"+idasig)
   },[image])
   useEffect(async () =>{
   },[])
