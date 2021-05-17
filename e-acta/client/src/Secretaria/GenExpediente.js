@@ -24,7 +24,7 @@ export default class Asignatura extends React.Component{
         return (
             <section>
                 <Card style={{ width: '100%',height:'100%'}}>
-                    <Card.Title style={{ textAlign:'center'}}>Expediente</Card.Title>
+                    <Card.Title style={{ textAlign:'center'}}>Expediente de {this.props.nombre} {this.props.apellidos}</Card.Title>
                 <div class="content">
                 <Card style={{ width: '100%',height:'100%', overflow:"auto"}}>
                     <Card.Body>

@@ -26,6 +26,7 @@ export const Alumnos = () =>{
     const[alumnoSelected,setAlumnoSelected] = useState(false);
     const[indiceAlumno,setIndiceAlumno] = useState(-1);
     const[nombreAlumno,setnombreAlumno] = useState("");
+    const[apellidosAlumno, setApellidosAlumno] = useState("");
     const[user,setUser]=useState("");
     const[expediente, setExpediente] = useState([])
     console.log("UseEffect Info Usuario:", user);
@@ -54,14 +55,19 @@ export const Alumnos = () =>{
         const response = await axios.get('/app/api/usuarios/'+localStorage.getItem("iduser"))
         setUser(response.data.nombre + " " + response.data.apellidos)
     })
-    async function propsAlumno(nombre,indice, id){
+    async function propsAlumno(nombre,indice, id, apellidos){
+        var fullExp = []
         setAlumnoSelected(true);
         setnombreAlumno(nombre);
+        setApellidosAlumno(apellidos)
         setIndiceAlumno(indice);
         const response = await axios.get("/app/api/notas/alumnos/"+id)
         setExpediente(response.data)
         alert("Generado y enviado el Expediente")
-        const resp = axios.post("/app/api/email/sendGrades/secretaria.etsit.upm@gmail.com", response.data)
+        response.data.forEach(nota => {fullExp.push(nota.asignatura.nombreAsignaturas); fullExp.push(nota.nota);} )
+        //console.log(fullExp)
+        console.log(fullExp)
+        //const resp = axios.post("/app/api/email/sendGrades/secretaria.etsit.upm@gmail.com", fullExp)
     }
 
     function handlerState(){
@@ -97,7 +103,7 @@ export const Alumnos = () =>{
                                         <Container>
                                             <ListGroup  horizontal className="my-2">
                                                 <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombre + " " + a.apellidos}</ListGroupItem>
-                                                <ListGroupItem variant="info"><Button onClick={()=>propsAlumno(a.nombre,0,a.id)}>Generar expediente</Button></ListGroupItem>
+                                                <ListGroupItem variant="info"><Button onClick={()=>propsAlumno(a.nombre,0,a.id, a.apellidos)}>Generar expediente</Button></ListGroupItem>
                                                 {console.log("Map alumnos",a)}
                                                 {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                             </ListGroup>
@@ -113,7 +119,7 @@ export const Alumnos = () =>{
             }
 
             { alumnoSelected &&
-                <GenExpediente expediente={expediente} handlerStateChild={handlerState}/>
+                <GenExpediente nombre={nombreAlumno} apellidos={apellidosAlumno} expediente={expediente} handlerStateChild={handlerState}/>
             }
 
             <aside>

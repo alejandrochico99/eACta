@@ -39,9 +39,10 @@ export const Asignaturas = () =>{
             }
             else if(rolusers == localStorage.getItem("rolsecretaria")){ // SECRETARIA
                 let response = await axios.get('/app/api/asignaturas');
+                setAsig(response.data);
                 let response2 = await axios.get('/app/api/usuarios/'+iduser);
                 setUserName(response2.data.nombre + " " + response2.data.apellidos)
-                setAsig(response.data.asignaturas)
+
             }
         }else{
             
@@ -70,10 +71,11 @@ export const Asignaturas = () =>{
     useEffect(()=>{
     },[asignaturaSelected]);
 
-    function showAsig(){
+    async function showAsig(){
         var showAsignaturas
-        if (asig !== undefined) {
-            showAsignaturas = asig.map((a)=>{
+        let response = await axios.get('/app/api/asignaturas');
+        if (response.data !== undefined) {
+            showAsignaturas = response.data.map((a)=>{
                 if(a.firmado1 && a.firmado2 && a.firmado3){ 
                     <Container>
                         <ListGroup  horizontal className="my-2">
@@ -115,8 +117,9 @@ export const Asignaturas = () =>{
                                         <ListGroup  horizontal className="my-2">
                                             <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
                                             <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                                            {(!a.firmado1 || !a.firmado2 || !a.firmado3) &&
                                             <ListGroupItem variant="info"><Button variant="danger" onClick={()=>firmaActas(a.nombreAsignaturas,0)}>Firmar</Button></ListGroupItem>
-                                            
+                                            }
                                             {/*<ListGroupItem variant="info"><p>IMG asignatura</p></ListGroupItem>*/}
                                         </ListGroup>
                                  </Container>
@@ -130,7 +133,7 @@ export const Asignaturas = () =>{
 
             }
 
-            { rolusers == localStorage.getItem("rolsecretaria") &&
+            { !asignaturaSelected && rolusers == localStorage.getItem("rolsecretaria") &&
                 <section>
                 <Card style={{ width: '100%',height:'100%'}}>
                 <Card.Title style={{ textAlign:'center'}}>Miembro de secretaría: {userName}</Card.Title>
@@ -139,7 +142,15 @@ export const Asignaturas = () =>{
                         <Card.Header></Card.Header>
                         <Card.Body>
                             <Card.Text >
-                                {showAsig()}
+                                {asig.filter(asigs => asigs.firmado1 && asigs.firmado2 && asigs.firmado3).map((a)=>
+                                 <Container>
+                                        <ListGroup  horizontal className="my-2">
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.siglas}</ListGroupItem>
+                                            <ListGroupItem variant="info" style={{width: '100%',textAlign:"center"}}>{a.nombreAsignaturas}</ListGroupItem>
+                                            <ListGroupItem variant="info"><Button onClick={()=>propsAsignatura(a.nombreAsignaturas,0)}>Actas</Button></ListGroupItem>
+                                        </ListGroup>
+                                 </Container>
+                                 )}
                             </Card.Text>
                         </Card.Body>
                         </Card>
@@ -149,7 +160,7 @@ export const Asignaturas = () =>{
 
             }
 
-            {asignaturaSelected && !asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //coger los roles desde la bbdd
+            {asignaturaSelected  && ( //coger los roles desde la bbdd
                 <Asignatura nombre={nombreAsignatura} handlerStateChild={handlerState} idRolUser={rolusers}> </Asignatura> // modificar el componente para que dependiendo que botn pulsas, le pasa unas props al componente diferentes y renderiza la asignatura correcta
             )}
             {!asignaturaSelected && asignaturaFirmaSelected && rolusers == localStorage.getItem("roltribunal") && ( //cambiar roles
